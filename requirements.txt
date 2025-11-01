@@ -1,0 +1,19 @@
+# Core ML & Transformers
+torch>=2.0.1
+transformers>=4.35.2
+peft>=0.7.1
+datasets>=2.14.6
+accelerate>=0.25.0
+
+# Numerical computing (pinned for compatibility)
+numpy>=1.24.3,<1.25.0
+scikit-learn>=1.3.2,<1.4.0
+pandas>=2.1.4,<2.2.0
+
+# UI & Utilities
+gradio>=4.13.0
+tqdm>=4.65.0
+
+# Optional: for smaller model sizes
+bitsandbytes>=0.41.3
+sentencepiece>=0.1.99
