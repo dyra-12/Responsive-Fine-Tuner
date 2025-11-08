@@ -1,0 +1,22 @@
+model:
+  base_model: "distilbert-base-uncased"
+  max_length: 512
+  num_labels: 2
+
+training:
+  batch_size: 4
+  learning_rate: 1e-4
+  max_steps: 50
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+
+data:
+  supported_formats: [".txt", ".csv", ".json"]
+  max_file_size_mb: 10
+  test_split: 0.2
+
+ui:
+  theme: "soft"
+  batch_size_labeling: 5
+  update_interval: 1000
