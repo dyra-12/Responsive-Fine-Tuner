@@ -296,5 +296,22 @@ class RFTInterface:
         """Launch the Gradio interface"""
         if self.interface is None:
             self.setup_interface()
-        
+        # Some Gradio versions accept a `queue`/`enable_queue` kwarg on launch,
+        # others require calling `.queue()` on the Blocks object before launch.
+        # Normalize by handling both possibilities here.
+        if 'enable_queue' in kwargs:
+            try:
+                if kwargs.pop('enable_queue'):
+                    self.interface = self.interface.queue()
+            except Exception:
+                # If `.queue()` is not available, just remove the flag and continue
+                kwargs.pop('enable_queue', None)
+
+        if 'queue' in kwargs:
+            try:
+                if kwargs.pop('queue'):
+                    self.interface = self.interface.queue()
+            except Exception:
+                kwargs.pop('queue', None)
+
         return self.interface.launch(**kwargs)

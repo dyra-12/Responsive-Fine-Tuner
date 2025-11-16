@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  rft-app:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "7860:7860"
+    environment:
+      - CONFIG_PATH=/app/config/settings.yaml
+      - MODEL_CACHE_DIR=/app/models/cache
+      - DATA_DIR=/app/data
+    volumes:
+      - model_cache:/app/models/cache
+      - data_volume:/app/data
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    restart: unless-stopped
+
+volumes:
+  model_cache:
+  data_volume:
