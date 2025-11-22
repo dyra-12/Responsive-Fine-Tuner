@@ -1,6 +1,6 @@
 import gradio as gr
 import plotly.graph_objects as go
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Callable
 import pandas as pd
 
 def create_analytics_interface(app, analytics_callback: Callable) -> gr.Blocks:

@@ -1,0 +1,30 @@
+model:
+  base_model: "distilbert-base-uncased"
+  max_length: 512
+  num_labels: 2
+
+training:
+  batch_size: 8
+  learning_rate: 1e-4
+  max_steps: 100
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+
+data:
+  supported_formats: [".txt", ".csv", ".json"]
+  max_file_size_mb: 100
+  test_split: 0.2
+
+ui:
+  theme: "soft"
+  batch_size_labeling: 10
+  update_interval: 500
+
+enterprise:
+  db_path: "data/enterprise_users.db"
+  production: true
+  max_users: 500
+  model_storage_path: "models/enterprise/"
+  logging_level: "INFO"
+  enable_audit_logging: true
