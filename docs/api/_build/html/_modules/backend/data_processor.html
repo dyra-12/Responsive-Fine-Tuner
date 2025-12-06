@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>backend.data_processor &mdash; Responsive Fine-Tuner API</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Responsive Fine-Tuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Documentation Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.data_processor">Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData"><code class="docutils literal notranslate"><span class="pre">ProcessedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.texts"><code class="docutils literal notranslate"><span class="pre">ProcessedData.texts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.labels"><code class="docutils literal notranslate"><span class="pre">ProcessedData.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.metadata"><code class="docutils literal notranslate"><span class="pre">ProcessedData.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.file_sources"><code class="docutils literal notranslate"><span class="pre">ProcessedData.file_sources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor"><code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.validate_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.validate_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.detect_encoding"><code class="docutils literal notranslate"><span class="pre">DataProcessor.detect_encoding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_text_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_text_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_csv_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_csv_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.split_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.split_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.save_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.save_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.load_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.load_processed_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.base_model"><code class="docutils literal notranslate"><span class="pre">ModelConfig.base_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.max_length"><code class="docutils literal notranslate"><span class="pre">ModelConfig.max_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.num_labels"><code class="docutils literal notranslate"><span class="pre">ModelConfig.num_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_r"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_alpha"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_dropout"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_dropout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig"><code class="docutils literal notranslate"><span class="pre">DataConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.supported_formats"><code class="docutils literal notranslate"><span class="pre">DataConfig.supported_formats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.max_file_size_mb"><code class="docutils literal notranslate"><span class="pre">DataConfig.max_file_size_mb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.test_split"><code class="docutils literal notranslate"><span class="pre">DataConfig.test_split</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig"><code class="docutils literal notranslate"><span class="pre">UIConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.theme"><code class="docutils literal notranslate"><span class="pre">UIConfig.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.batch_size_labeling"><code class="docutils literal notranslate"><span class="pre">UIConfig.batch_size_labeling</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.update_interval"><code class="docutils literal notranslate"><span class="pre">UIConfig.update_interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.load_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.model_manager">Model Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager"><code class="docutils literal notranslate"><span class="pre">ModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">ModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">ModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.batch_predict"><code class="docutils literal notranslate"><span class="pre">ModelManager.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">ModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.FeedbackDataset"><code class="docutils literal notranslate"><span class="pre">FeedbackDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.prepare_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.fine_tune_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.incremental_fine_tune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.evaluate_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_training_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.save_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling"><code class="docutils literal notranslate"><span class="pre">SmartSampling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.calculate_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.update_sample_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples"><code class="docutils literal notranslate"><span class="pre">SmartSampling.get_most_uncertain_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.prepare_reward_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.fine_tune_with_adaptive_lr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_smart_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.reward_based_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_training_analytics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.app_core">Frontend Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication"><code class="docutils literal notranslate"><span class="pre">RFTApplication</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">RFTApplication.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_next_document"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_next_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.submit_feedback"><code class="docutils literal notranslate"><span class="pre">RFTApplication.submit_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_performance_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.update_available_labels"><code class="docutils literal notranslate"><span class="pre">RFTApplication.update_available_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.reset_application"><code class="docutils literal notranslate"><span class="pre">RFTApplication.reset_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.export_training_data"><code class="docutils literal notranslate"><span class="pre">RFTApplication.export_training_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.components.data_upload">UI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_data_upload_interface"><code class="docutils literal notranslate"><span class="pre">create_data_upload_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_upload_status_display"><code class="docutils literal notranslate"><span class="pre">create_upload_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_dataset_info_df"><code class="docutils literal notranslate"><span class="pre">create_dataset_info_df()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_labeling_interface"><code class="docutils literal notranslate"><span class="pre">create_labeling_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_prediction_display"><code class="docutils literal notranslate"><span class="pre">create_prediction_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_progress_display"><code class="docutils literal notranslate"><span class="pre">create_progress_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_interface"><code class="docutils literal notranslate"><span class="pre">create_performance_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_plots"><code class="docutils literal notranslate"><span class="pre">create_performance_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_current_metrics_display"><code class="docutils literal notranslate"><span class="pre">create_current_metrics_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Responsive Fine-Tuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">backend.data_processor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for backend.data_processor</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># chardet is the preferred encoding detector. However, some environments may not</span>
+<span class="c1"># have it installed. Provide fallbacks: try `chardet`, then `charset_normalizer`,</span>
+<span class="c1"># otherwise fall back to a no-op detector that assumes utf-8.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">chardet</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_chardet</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_detect_encoding_raw</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_chardet</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">charset_normalizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">from_bytes</span> <span class="k">as</span> <span class="n">_from_bytes</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_detect_encoding_raw</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">_from_bytes</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">results</span><span class="p">:</span>
+                <span class="n">best</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">best</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="n">best</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_detect_encoding_raw</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="c1"># Last-resort: assume utf-8</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProcessedData">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.ProcessedData">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProcessedData</span><span class="p">:</span>
+    <span class="n">texts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="n">file_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DataProcessor">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataProcessor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">supported_formats</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">supported_formats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_file_size</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max_file_size_mb</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># Convert to bytes</span>
+        
+<div class="viewcode-block" id="DataProcessor.validate_file">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.validate_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate file format and size&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Check file extension</span>
+            <span class="n">file_ext</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">file_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">supported_formats</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="n">file_ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            
+            <span class="c1"># Check file size</span>
+            <span class="n">file_size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">file_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_file_size</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File too large: </span><span class="si">{</span><span class="n">file_size</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                
+            <span class="k">if</span> <span class="n">file_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;File is empty&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+                
+            <span class="k">return</span> <span class="kc">True</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File validation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.detect_encoding">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.detect_encoding">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detect_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Detect file encoding&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">raw_data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># Sample first 10KB for detection</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">_detect_encoding_raw</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+                <span class="n">encoding</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;utf-8&#39;</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">confidence</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">confidence</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected encoding: </span><span class="si">{</span><span class="n">encoding</span><span class="si">}</span><span class="s2"> (confidence: </span><span class="si">{</span><span class="n">confidence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">encoding</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encoding detection failed, using utf-8: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s1">&#39;utf-8&#39;</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.process_text_file">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.process_text_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_text_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process .txt file into individual documents&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_encoding</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">documents</span> <span class="o">=</span> <span class="p">[]</span>
+            
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                
+            <span class="c1"># Split by paragraphs or sections</span>
+            <span class="n">paragraphs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+            
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">paragraph</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">):</span>
+                <span class="c1"># Use a modest minimum length to include short but valid documents</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paragraph</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Minimum length requirement</span>
+                    <span class="n">documents</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">paragraph</span><span class="p">,</span>
+                        <span class="s1">&#39;source_file&#39;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">,</span>
+                        <span class="s1">&#39;document_id&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_doc_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">paragraph</span><span class="p">),</span>
+                        <span class="s1">&#39;words&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">paragraph</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+                    <span class="p">})</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents from </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">documents</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to process text file </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.process_csv_file">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.process_csv_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_csv_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process .csv file with text data&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_encoding</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">documents</span> <span class="o">=</span> <span class="p">[]</span>
+            
+            <span class="c1"># Try different possible text columns</span>
+            <span class="n">possible_text_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;review&#39;</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">]</span>
+            
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+            
+            <span class="c1"># Find text column</span>
+            <span class="n">text_column</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">possible_text_columns</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                    <span class="n">text_column</span> <span class="o">=</span> <span class="n">col</span>
+                    <span class="k">break</span>
+            
+            <span class="k">if</span> <span class="n">text_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Use first string column</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+                        <span class="n">text_column</span> <span class="o">=</span> <span class="n">col</span>
+                        <span class="k">break</span>
+            
+            <span class="k">if</span> <span class="n">text_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No suitable text column found in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">text_column</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>  <span class="c1"># Minimum length</span>
+                    <span class="n">documents</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                        <span class="s1">&#39;source_file&#39;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">,</span>
+                        <span class="s1">&#39;document_id&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_row_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
+                        <span class="s1">&#39;words&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()),</span>
+                        <span class="s1">&#39;row_data&#39;</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+                    <span class="p">})</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents from </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">documents</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to process CSV file </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.process_uploaded_files">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_uploaded_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_paths</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ProcessedData</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method to process all uploaded files&quot;&quot;&quot;</span>
+        <span class="n">all_documents</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+                <span class="k">continue</span>
+                
+            <span class="n">file_ext</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="n">file_ext</span> <span class="o">==</span> <span class="s1">&#39;.txt&#39;</span><span class="p">:</span>
+                <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_text_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">file_ext</span> <span class="o">==</span> <span class="s1">&#39;.csv&#39;</span><span class="p">:</span>
+                <span class="n">documents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_csv_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported file format: </span><span class="si">{</span><span class="n">file_ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+                
+            <span class="n">all_documents</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+        
+        <span class="c1"># Create processed data object</span>
+        <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">all_documents</span><span class="p">]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>  <span class="c1"># Default labels (will be updated by user)</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">all_documents</span>
+        
+        <span class="n">processed_data</span> <span class="o">=</span> <span class="n">ProcessedData</span><span class="p">(</span>
+            <span class="n">texts</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span>
+            <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">file_sources</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">doc</span><span class="p">[</span><span class="s1">&#39;source_file&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">all_documents</span><span class="p">))</span>
+        <span class="p">)</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total processed: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">processed_data</span><span class="o">.</span><span class="n">file_sources</span><span class="p">)</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">processed_data</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.split_data">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.split_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processed_data</span><span class="p">:</span> <span class="n">ProcessedData</span><span class="p">,</span> <span class="n">test_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ProcessedData</span><span class="p">,</span> <span class="n">ProcessedData</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split data into training and test sets&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">test_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">test_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">test_split</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Not enough data for proper splitting, using all for training&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">processed_data</span><span class="p">,</span> <span class="n">ProcessedData</span><span class="p">([],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[])</span>
+        
+        <span class="c1"># Split indices</span>
+        <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)),</span>
+            <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Create training split</span>
+        <span class="n">train_data</span> <span class="o">=</span> <span class="n">ProcessedData</span><span class="p">(</span>
+            <span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_idx</span><span class="p">],</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_idx</span><span class="p">],</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_idx</span><span class="p">],</span>
+            <span class="n">file_sources</span><span class="o">=</span><span class="n">processed_data</span><span class="o">.</span><span class="n">file_sources</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Create test split</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="n">ProcessedData</span><span class="p">(</span>
+            <span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">],</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">],</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="p">[</span><span class="n">processed_data</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">],</span>
+            <span class="n">file_sources</span><span class="o">=</span><span class="n">processed_data</span><span class="o">.</span><span class="n">file_sources</span>
+        <span class="p">)</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data split: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> training, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> test&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">test_data</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.save_processed_data">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.save_processed_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_processed_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processed_data</span><span class="p">:</span> <span class="n">ProcessedData</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save processed data to disk&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data_to_save</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;texts&#39;</span><span class="p">:</span> <span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span>
+                <span class="s1">&#39;labels&#39;</span><span class="p">:</span> <span class="n">processed_data</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span>
+                <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">processed_data</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+                <span class="s1">&#39;file_sources&#39;</span><span class="p">:</span> <span class="n">processed_data</span><span class="o">.</span><span class="n">file_sources</span><span class="p">,</span>
+                <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;now&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+            
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data_to_save</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed data saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to save processed data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="DataProcessor.load_processed_data">
+<a class="viewcode-back" href="../../api_reference.html#backend.data_processor.DataProcessor.load_processed_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_processed_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProcessedData</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load processed data from disk&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">load_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">loaded_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            
+            <span class="n">processed_data</span> <span class="o">=</span> <span class="n">ProcessedData</span><span class="p">(</span>
+                <span class="n">texts</span><span class="o">=</span><span class="n">loaded_data</span><span class="p">[</span><span class="s1">&#39;texts&#39;</span><span class="p">],</span>
+                <span class="n">labels</span><span class="o">=</span><span class="n">loaded_data</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">],</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="n">loaded_data</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">],</span>
+                <span class="n">file_sources</span><span class="o">=</span><span class="n">loaded_data</span><span class="p">[</span><span class="s1">&#39;file_sources&#39;</span><span class="p">]</span>
+            <span class="p">)</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">processed_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents from </span><span class="si">{</span><span class="n">load_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">processed_data</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to load processed data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Responsive Fine-Tuner contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

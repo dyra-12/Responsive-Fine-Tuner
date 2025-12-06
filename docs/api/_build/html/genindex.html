@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index &mdash; Responsive Fine-Tuner API</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Responsive Fine-Tuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Documentation Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-backend.data_processor">Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.data_processor.ProcessedData"><code class="docutils literal notranslate"><span class="pre">ProcessedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.ProcessedData.texts"><code class="docutils literal notranslate"><span class="pre">ProcessedData.texts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.ProcessedData.labels"><code class="docutils literal notranslate"><span class="pre">ProcessedData.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.ProcessedData.metadata"><code class="docutils literal notranslate"><span class="pre">ProcessedData.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.ProcessedData.file_sources"><code class="docutils literal notranslate"><span class="pre">ProcessedData.file_sources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor"><code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.validate_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.validate_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.detect_encoding"><code class="docutils literal notranslate"><span class="pre">DataProcessor.detect_encoding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.process_text_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_text_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.process_csv_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_csv_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.split_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.split_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.save_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.save_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.data_processor.DataProcessor.load_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.load_processed_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-backend.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.ModelConfig.base_model"><code class="docutils literal notranslate"><span class="pre">ModelConfig.base_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.ModelConfig.max_length"><code class="docutils literal notranslate"><span class="pre">ModelConfig.max_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.ModelConfig.num_labels"><code class="docutils literal notranslate"><span class="pre">ModelConfig.num_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.lora_r"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.lora_alpha"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.TrainingConfig.lora_dropout"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_dropout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.config.DataConfig"><code class="docutils literal notranslate"><span class="pre">DataConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.DataConfig.supported_formats"><code class="docutils literal notranslate"><span class="pre">DataConfig.supported_formats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.DataConfig.max_file_size_mb"><code class="docutils literal notranslate"><span class="pre">DataConfig.max_file_size_mb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.DataConfig.test_split"><code class="docutils literal notranslate"><span class="pre">DataConfig.test_split</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.config.UIConfig"><code class="docutils literal notranslate"><span class="pre">UIConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.UIConfig.theme"><code class="docutils literal notranslate"><span class="pre">UIConfig.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.UIConfig.batch_size_labeling"><code class="docutils literal notranslate"><span class="pre">UIConfig.batch_size_labeling</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.UIConfig.update_interval"><code class="docutils literal notranslate"><span class="pre">UIConfig.update_interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.ConfigManager.load_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-backend.model_manager">Model Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager"><code class="docutils literal notranslate"><span class="pre">ModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">ModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">ModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.batch_predict"><code class="docutils literal notranslate"><span class="pre">ModelManager.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">ModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.model_manager.ModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.FeedbackDataset"><code class="docutils literal notranslate"><span class="pre">FeedbackDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.prepare_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.fine_tune_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.incremental_fine_tune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.evaluate_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_training_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.save_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdaptiveLearningRate"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.SmartSampling"><code class="docutils literal notranslate"><span class="pre">SmartSampling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.calculate_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.update_sample_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples"><code class="docutils literal notranslate"><span class="pre">SmartSampling.get_most_uncertain_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.prepare_reward_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdvancedModelManager"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.fine_tune_with_adaptive_lr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_smart_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.reward_based_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_training_analytics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-frontend.app_core">Frontend Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication"><code class="docutils literal notranslate"><span class="pre">RFTApplication</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">RFTApplication.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.get_next_document"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_next_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.submit_feedback"><code class="docutils literal notranslate"><span class="pre">RFTApplication.submit_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_performance_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.update_available_labels"><code class="docutils literal notranslate"><span class="pre">RFTApplication.update_available_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.reset_application"><code class="docutils literal notranslate"><span class="pre">RFTApplication.reset_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#frontend.app_core.RFTApplication.export_training_data"><code class="docutils literal notranslate"><span class="pre">RFTApplication.export_training_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-frontend.components.data_upload">UI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.data_upload.create_data_upload_interface"><code class="docutils literal notranslate"><span class="pre">create_data_upload_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.data_upload.create_upload_status_display"><code class="docutils literal notranslate"><span class="pre">create_upload_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.data_upload.create_dataset_info_df"><code class="docutils literal notranslate"><span class="pre">create_dataset_info_df()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.labeling.create_labeling_interface"><code class="docutils literal notranslate"><span class="pre">create_labeling_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.labeling.create_prediction_display"><code class="docutils literal notranslate"><span class="pre">create_prediction_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.labeling.create_progress_display"><code class="docutils literal notranslate"><span class="pre">create_progress_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.performance.create_performance_interface"><code class="docutils literal notranslate"><span class="pre">create_performance_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.performance.create_performance_plots"><code class="docutils literal notranslate"><span class="pre">create_performance_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#frontend.components.performance.create_current_metrics_display"><code class="docutils literal notranslate"><span class="pre">create_current_metrics_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Responsive Fine-Tuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdaptiveLearningRate">AdaptiveLearningRate (class in backend.advanced_trainer)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback">add_feedback() (EnhancedModelManager method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#backend.model_manager.ModelManager.add_feedback">(ModelManager method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdvancedModelManager">AdvancedModelManager (class in backend.advanced_trainer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    backend.advanced_trainer
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.advanced_trainer">module</a>
+</li>
+      </ul></li>
+      <li>
+    backend.config
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    backend.data_processor
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.data_processor">module</a>
+</li>
+      </ul></li>
+      <li>
+    backend.enhanced_model_manager
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.enhanced_model_manager">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    backend.model_manager
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.model_manager">module</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#backend.config.ModelConfig.base_model">base_model (ModelConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.model_manager.ModelManager.batch_predict">batch_predict() (ModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.batch_size">batch_size (TrainingConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.UIConfig.batch_size_labeling">batch_size_labeling (UIConfig attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty">calculate_uncertainty() (SmartSampling method)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward">compute_reward() (RewardBasedTrainer method)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.ConfigManager">ConfigManager (class in backend.config)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.performance.create_current_metrics_display">create_current_metrics_display() (in module frontend.components.performance)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.data_upload.create_data_upload_interface">create_data_upload_interface() (in module frontend.components.data_upload)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.data_upload.create_dataset_info_df">create_dataset_info_df() (in module frontend.components.data_upload)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#frontend.components.labeling.create_labeling_interface">create_labeling_interface() (in module frontend.components.labeling)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.performance.create_performance_interface">create_performance_interface() (in module frontend.components.performance)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.performance.create_performance_plots">create_performance_plots() (in module frontend.components.performance)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.labeling.create_prediction_display">create_prediction_display() (in module frontend.components.labeling)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.labeling.create_progress_display">create_progress_display() (in module frontend.components.labeling)</a>
+</li>
+      <li><a href="api_reference.html#frontend.components.data_upload.create_upload_status_display">create_upload_status_display() (in module frontend.components.data_upload)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.DataConfig">DataConfig (class in backend.config)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor">DataProcessor (class in backend.data_processor)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.detect_encoding">detect_encoding() (DataProcessor method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager">EnhancedModelManager (class in backend.enhanced_model_manager)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model">evaluate_model() (EnhancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.export_training_data">export_training_data() (RFTApplication method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.FeedbackDataset">FeedbackDataset (class in backend.enhanced_model_manager)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.ProcessedData.file_sources">file_sources (ProcessedData attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step">fine_tune_step() (EnhancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr">fine_tune_with_adaptive_lr() (AdvancedModelManager method)</a>
+</li>
+      <li>
+    frontend.app_core
+
+      <ul>
+        <li><a href="api_reference.html#module-frontend.app_core">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    frontend.components.data_upload
+
+      <ul>
+        <li><a href="api_reference.html#module-frontend.components.data_upload">module</a>
+</li>
+      </ul></li>
+      <li>
+    frontend.components.labeling
+
+      <ul>
+        <li><a href="api_reference.html#module-frontend.components.labeling">module</a>
+</li>
+      </ul></li>
+      <li>
+    frontend.components.performance
+
+      <ul>
+        <li><a href="api_reference.html#module-frontend.components.performance">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.ConfigManager.get_config">get_config() (ConfigManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info">get_model_info() (EnhancedModelManager method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#backend.model_manager.ModelManager.get_model_info">(ModelManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples">get_most_uncertain_samples() (SmartSampling method)</a>
+</li>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.get_next_document">get_next_document() (RFTApplication method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics">get_performance_metrics() (RFTApplication method)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction">get_prediction() (EnhancedModelManager method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#backend.model_manager.ModelManager.get_prediction">(ModelManager method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples">get_smart_samples() (AdvancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics">get_training_analytics() (AdvancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history">get_training_history() (EnhancedModelManager method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune">incremental_fine_tune() (EnhancedModelManager method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model">initialize_model() (EnhancedModelManager method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#backend.model_manager.ModelManager.initialize_model">(ModelManager method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.data_processor.ProcessedData.labels">labels (ProcessedData attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.learning_rate">learning_rate (TrainingConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.ConfigManager.load_config">load_config() (ConfigManager method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.load_processed_data">load_processed_data() (DataProcessor method)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.lora_alpha">lora_alpha (TrainingConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.lora_dropout">lora_dropout (TrainingConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.lora_r">lora_r (TrainingConfig attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.DataConfig.max_file_size_mb">max_file_size_mb (DataConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.ModelConfig.max_length">max_length (ModelConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig.max_steps">max_steps (TrainingConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.ProcessedData.metadata">metadata (ProcessedData attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.ModelConfig">ModelConfig (class in backend.config)</a>
+</li>
+      <li><a href="api_reference.html#backend.model_manager.ModelManager">ModelManager (class in backend.model_manager)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api_reference.html#module-backend.advanced_trainer">backend.advanced_trainer</a>
+</li>
+        <li><a href="api_reference.html#module-backend.config">backend.config</a>
+</li>
+        <li><a href="api_reference.html#module-backend.data_processor">backend.data_processor</a>
+</li>
+        <li><a href="api_reference.html#module-backend.enhanced_model_manager">backend.enhanced_model_manager</a>
+</li>
+        <li><a href="api_reference.html#module-backend.model_manager">backend.model_manager</a>
+</li>
+        <li><a href="api_reference.html#module-frontend.app_core">frontend.app_core</a>
+</li>
+        <li><a href="api_reference.html#module-frontend.components.data_upload">frontend.components.data_upload</a>
+</li>
+        <li><a href="api_reference.html#module-frontend.components.labeling">frontend.components.labeling</a>
+</li>
+        <li><a href="api_reference.html#module-frontend.components.performance">frontend.components.performance</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.ModelConfig.num_labels">num_labels (ModelConfig attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset">prepare_dataset() (EnhancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data">prepare_reward_data() (RewardBasedTrainer method)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.process_csv_file">process_csv_file() (DataProcessor method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.process_text_file">process_text_file() (DataProcessor method)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files">process_uploaded_files() (DataProcessor method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files">(RFTApplication method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#backend.data_processor.ProcessedData">ProcessedData (class in backend.data_processor)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.reset_application">reset_application() (RFTApplication method)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training">reward_based_training() (AdvancedModelManager method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.advanced_trainer.RewardBasedTrainer">RewardBasedTrainer (class in backend.advanced_trainer)</a>
+</li>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication">RFTApplication (class in frontend.app_core)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model">save_model() (EnhancedModelManager method)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.save_processed_data">save_processed_data() (DataProcessor method)</a>
+</li>
+      <li><a href="api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora">setup_lora() (EnhancedModelManager method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#backend.model_manager.ModelManager.setup_lora">(ModelManager method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.advanced_trainer.SmartSampling">SmartSampling (class in backend.advanced_trainer)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.split_data">split_data() (DataProcessor method)</a>
+</li>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.submit_feedback">submit_feedback() (RFTApplication method)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.DataConfig.supported_formats">supported_formats (DataConfig attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.DataConfig.test_split">test_split (DataConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.data_processor.ProcessedData.texts">texts (ProcessedData attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.UIConfig.theme">theme (UIConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.TrainingConfig">TrainingConfig (class in backend.config)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.config.UIConfig">UIConfig (class in backend.config)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update">update() (AdaptiveLearningRate method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#frontend.app_core.RFTApplication.update_available_labels">update_available_labels() (RFTApplication method)</a>
+</li>
+      <li><a href="api_reference.html#backend.config.UIConfig.update_interval">update_interval (UIConfig attribute)</a>
+</li>
+      <li><a href="api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty">update_sample_uncertainty() (SmartSampling method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#backend.data_processor.DataProcessor.validate_file">validate_file() (DataProcessor method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Responsive Fine-Tuner contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

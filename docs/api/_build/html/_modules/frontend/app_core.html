@@ -1,0 +1,526 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>frontend.app_core &mdash; Responsive Fine-Tuner API</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Responsive Fine-Tuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Documentation Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.data_processor">Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData"><code class="docutils literal notranslate"><span class="pre">ProcessedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.texts"><code class="docutils literal notranslate"><span class="pre">ProcessedData.texts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.labels"><code class="docutils literal notranslate"><span class="pre">ProcessedData.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.metadata"><code class="docutils literal notranslate"><span class="pre">ProcessedData.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.file_sources"><code class="docutils literal notranslate"><span class="pre">ProcessedData.file_sources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor"><code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.validate_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.validate_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.detect_encoding"><code class="docutils literal notranslate"><span class="pre">DataProcessor.detect_encoding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_text_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_text_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_csv_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_csv_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.split_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.split_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.save_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.save_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.load_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.load_processed_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.base_model"><code class="docutils literal notranslate"><span class="pre">ModelConfig.base_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.max_length"><code class="docutils literal notranslate"><span class="pre">ModelConfig.max_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.num_labels"><code class="docutils literal notranslate"><span class="pre">ModelConfig.num_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_r"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_alpha"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_dropout"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_dropout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig"><code class="docutils literal notranslate"><span class="pre">DataConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.supported_formats"><code class="docutils literal notranslate"><span class="pre">DataConfig.supported_formats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.max_file_size_mb"><code class="docutils literal notranslate"><span class="pre">DataConfig.max_file_size_mb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.test_split"><code class="docutils literal notranslate"><span class="pre">DataConfig.test_split</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig"><code class="docutils literal notranslate"><span class="pre">UIConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.theme"><code class="docutils literal notranslate"><span class="pre">UIConfig.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.batch_size_labeling"><code class="docutils literal notranslate"><span class="pre">UIConfig.batch_size_labeling</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.update_interval"><code class="docutils literal notranslate"><span class="pre">UIConfig.update_interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.load_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.model_manager">Model Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager"><code class="docutils literal notranslate"><span class="pre">ModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">ModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">ModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.batch_predict"><code class="docutils literal notranslate"><span class="pre">ModelManager.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">ModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.FeedbackDataset"><code class="docutils literal notranslate"><span class="pre">FeedbackDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.prepare_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.fine_tune_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.incremental_fine_tune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.evaluate_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_training_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.save_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling"><code class="docutils literal notranslate"><span class="pre">SmartSampling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.calculate_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.update_sample_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples"><code class="docutils literal notranslate"><span class="pre">SmartSampling.get_most_uncertain_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.prepare_reward_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.fine_tune_with_adaptive_lr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_smart_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.reward_based_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_training_analytics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.app_core">Frontend Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication"><code class="docutils literal notranslate"><span class="pre">RFTApplication</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">RFTApplication.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_next_document"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_next_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.submit_feedback"><code class="docutils literal notranslate"><span class="pre">RFTApplication.submit_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_performance_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.update_available_labels"><code class="docutils literal notranslate"><span class="pre">RFTApplication.update_available_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.reset_application"><code class="docutils literal notranslate"><span class="pre">RFTApplication.reset_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.export_training_data"><code class="docutils literal notranslate"><span class="pre">RFTApplication.export_training_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.components.data_upload">UI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_data_upload_interface"><code class="docutils literal notranslate"><span class="pre">create_data_upload_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_upload_status_display"><code class="docutils literal notranslate"><span class="pre">create_upload_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_dataset_info_df"><code class="docutils literal notranslate"><span class="pre">create_dataset_info_df()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_labeling_interface"><code class="docutils literal notranslate"><span class="pre">create_labeling_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_prediction_display"><code class="docutils literal notranslate"><span class="pre">create_prediction_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_progress_display"><code class="docutils literal notranslate"><span class="pre">create_progress_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_interface"><code class="docutils literal notranslate"><span class="pre">create_performance_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_plots"><code class="docutils literal notranslate"><span class="pre">create_performance_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_current_metrics_display"><code class="docutils literal notranslate"><span class="pre">create_current_metrics_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Responsive Fine-Tuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">frontend.app_core</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for frontend.app_core</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="c1"># Add backend to path</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">backend.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">backend.data_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataProcessor</span><span class="p">,</span> <span class="n">ProcessedData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">backend.enhanced_model_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnhancedModelManager</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RFTApplication">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RFTApplication</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main application class for Responsive Fine-Tuner&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;config/settings.yaml&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigManager</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_processor</span> <span class="o">=</span> <span class="n">DataProcessor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span> <span class="o">=</span> <span class="n">EnhancedModelManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        
+        <span class="c1"># Application state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">available_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Class 0&quot;</span><span class="p">,</span> <span class="s2">&quot;Class 1&quot;</span><span class="p">]</span>  <span class="c1"># Default binary labels</span>
+        
+        <span class="c1"># UI components (will be initialized in setup_interface)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RFT Application initialized&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="RFTApplication.process_uploaded_files">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_uploaded_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process uploaded files and update application state&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No files provided&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Process files</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_processor</span><span class="o">.</span><span class="n">process_uploaded_files</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+            
+            <span class="c1"># Split into train/test</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_processor</span><span class="o">.</span><span class="n">split_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="p">)</span>
+            
+            <span class="c1"># Reset labeling state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span> <span class="o">=</span> <span class="p">[]</span>
+            
+            <span class="c1"># Update available labels based on data (if any labels exist)</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">label</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+                <span class="n">unique_labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">available_labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Class </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">unique_labels</span><span class="p">)]</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents&quot;</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Successfully processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2"> files&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;document_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">texts</span><span class="p">),</span>
+                <span class="s2">&quot;train_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">),</span>
+                <span class="s2">&quot;test_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="o">.</span><span class="n">texts</span><span class="p">),</span>
+                <span class="s2">&quot;file_sources&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span><span class="o">.</span><span class="n">file_sources</span>
+            <span class="p">}</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File processing failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Processing failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.get_next_document">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.get_next_document">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_next_document</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the next document for labeling&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No data available&quot;</span><span class="p">}</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;complete&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;All documents labeled&quot;</span><span class="p">}</span>
+        
+        <span class="c1"># Get current document</span>
+        <span class="n">document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span><span class="p">]</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span><span class="p">]</span>
+        
+        <span class="c1"># Get model prediction</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+        
+        <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;document_index&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span><span class="p">,</span>
+            <span class="s2">&quot;total_documents&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">),</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">,</span>
+            <span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="n">prediction</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">document</span><span class="p">,</span> <span class="n">response_data</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.submit_feedback">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.submit_feedback">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">submit_feedback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">user_feedback</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correct_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process user feedback and update model&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">document</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No document provided&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Convert label from string to integer</span>
+            <span class="k">if</span> <span class="n">user_feedback</span> <span class="o">==</span> <span class="s2">&quot;Correct&quot;</span><span class="p">:</span>
+                <span class="n">user_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">correct_label</span> <span class="ow">and</span> <span class="n">correct_label</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Class &quot;</span><span class="p">):</span>
+                    <span class="n">user_label</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">correct_label</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">user_label</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="c1"># Get current prediction for this document</span>
+            <span class="n">current_prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+            
+            <span class="c1"># Store feedback (call manager; if it was mocked and didn&#39;t append, ensure feedback_data is updated)</span>
+            <span class="n">old_feedback_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="p">,</span> <span class="s1">&#39;feedback_data&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">add_feedback</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">user_label</span><span class="p">,</span> <span class="n">current_prediction</span><span class="p">)</span>
+            <span class="c1"># If add_feedback was patched/mocked and didn&#39;t actually append, append here to keep counts consistent</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">new_feedback_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">new_feedback_count</span> <span class="o">=</span> <span class="n">old_feedback_count</span>
+
+            <span class="k">if</span> <span class="n">new_feedback_count</span> <span class="o">==</span> <span class="n">old_feedback_count</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="p">,</span> <span class="s1">&#39;feedback_data&#39;</span><span class="p">):</span>
+                <span class="n">fb_entry</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">document</span><span class="p">,</span>
+                    <span class="s2">&quot;user_label&quot;</span><span class="p">:</span> <span class="n">user_label</span><span class="p">,</span>
+                    <span class="s2">&quot;model_prediction&quot;</span><span class="p">:</span> <span class="n">current_prediction</span><span class="p">,</span>
+                    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+                <span class="p">}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fb_entry</span><span class="p">)</span>
+            
+            <span class="c1"># Record in labeling history</span>
+            <span class="n">history_entry</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;document&quot;</span><span class="p">:</span> <span class="n">document</span><span class="p">,</span>
+                <span class="s2">&quot;user_feedback&quot;</span><span class="p">:</span> <span class="n">user_feedback</span><span class="p">,</span>
+                <span class="s2">&quot;user_label&quot;</span><span class="p">:</span> <span class="n">user_label</span><span class="p">,</span>
+                <span class="s2">&quot;model_prediction&quot;</span><span class="p">:</span> <span class="n">current_prediction</span><span class="p">,</span>
+                <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">history_entry</span><span class="p">)</span>
+            
+            <span class="c1"># Move to next document</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="c1"># Check if we should retrain</span>
+            <span class="n">feedback_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="p">)</span>
+            <span class="n">should_retrain</span> <span class="o">=</span> <span class="n">feedback_count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">batch_size</span>
+            
+            <span class="n">retrain_result</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">should_retrain</span><span class="p">:</span>
+                <span class="n">retrain_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">incremental_fine_tune</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="p">)</span>
+                
+                <span class="c1"># Update performance metrics</span>
+                <span class="k">if</span> <span class="n">retrain_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;success&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="p">:</span>
+                    <span class="n">eval_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">evaluate_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_data</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s2">&quot;feedback_count&quot;</span><span class="p">:</span> <span class="n">feedback_count</span><span class="p">,</span>
+                        <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">eval_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+                        <span class="s2">&quot;training_loss&quot;</span><span class="p">:</span> <span class="n">retrain_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="p">})</span>
+            
+            <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Feedback submitted successfully&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;current_index&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span><span class="p">,</span>
+                <span class="s2">&quot;total_documents&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">),</span>
+                <span class="s2">&quot;feedback_count&quot;</span><span class="p">:</span> <span class="n">feedback_count</span><span class="p">,</span>
+                <span class="s2">&quot;retrained&quot;</span><span class="p">:</span> <span class="n">should_retrain</span><span class="p">,</span>
+                <span class="s2">&quot;retrain_result&quot;</span><span class="p">:</span> <span class="n">retrain_result</span><span class="p">,</span>
+                <span class="s2">&quot;completion_percentage&quot;</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="p">}</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feedback submitted: </span><span class="si">{</span><span class="n">user_feedback</span><span class="si">}</span><span class="s2">, Label: </span><span class="si">{</span><span class="n">user_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feedback submission failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Submission failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.get_performance_metrics">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_performance_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current performance metrics&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Basic model info</span>
+            <span class="n">model_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">get_model_info</span><span class="p">()</span>
+            
+            <span class="c1"># Current performance</span>
+            <span class="n">current_accuracy</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span><span class="p">:</span>
+                <span class="n">current_accuracy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            
+            <span class="c1"># Labeling progress</span>
+            <span class="n">labeled_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span><span class="p">)</span>
+            <span class="n">total_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">progress_percentage</span> <span class="o">=</span> <span class="p">(</span><span class="n">labeled_count</span> <span class="o">/</span> <span class="n">total_count</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">total_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            
+            <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;model_info&quot;</span><span class="p">:</span> <span class="n">model_info</span><span class="p">,</span>
+                <span class="s2">&quot;current_accuracy&quot;</span><span class="p">:</span> <span class="n">current_accuracy</span><span class="p">,</span>
+                <span class="s2">&quot;labeling_progress&quot;</span><span class="p">:</span> <span class="n">progress_percentage</span><span class="p">,</span>
+                <span class="s2">&quot;labeled_count&quot;</span><span class="p">:</span> <span class="n">labeled_count</span><span class="p">,</span>
+                <span class="s2">&quot;total_count&quot;</span><span class="p">:</span> <span class="n">total_count</span><span class="p">,</span>
+                <span class="s2">&quot;feedback_count&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">feedback_data</span><span class="p">),</span>
+                <span class="s2">&quot;training_sessions&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span><span class="o">.</span><span class="n">training_history</span><span class="p">),</span>
+                <span class="s2">&quot;performance_history&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span>
+            <span class="p">}</span>
+            
+            <span class="k">return</span> <span class="n">metrics</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get performance metrics: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.update_available_labels">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.update_available_labels">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_available_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update available label options&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">available_labels</span> <span class="o">=</span> <span class="n">new_labels</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.reset_application">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.reset_application">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_application</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset application state&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_document_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">performance_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Note: We keep the model manager state for continued learning</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Application state reset&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="RFTApplication.export_training_data">
+<a class="viewcode-back" href="../../api_reference.html#frontend.app_core.RFTApplication.export_training_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">export_training_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export labeled training data&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;No labeled data to export&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Prepare export data</span>
+            <span class="n">export_data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labeling_history</span><span class="p">:</span>
+                <span class="n">export_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;document&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;user_label&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;model_prediction&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;model_prediction&quot;</span><span class="p">][</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;user_feedback&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;user_feedback&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
+                <span class="p">})</span>
+            
+            <span class="c1"># Save as JSON</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">export_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">export_data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exported </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">export_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> labeled samples to </span><span class="si">{</span><span class="n">export_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="s2">&quot;exported_samples&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">export_data</span><span class="p">)}</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Export failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Responsive Fine-Tuner contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

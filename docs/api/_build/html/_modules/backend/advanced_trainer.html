@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>backend.advanced_trainer &mdash; Responsive Fine-Tuner API</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Responsive Fine-Tuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Documentation Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.data_processor">Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData"><code class="docutils literal notranslate"><span class="pre">ProcessedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.texts"><code class="docutils literal notranslate"><span class="pre">ProcessedData.texts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.labels"><code class="docutils literal notranslate"><span class="pre">ProcessedData.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.metadata"><code class="docutils literal notranslate"><span class="pre">ProcessedData.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.ProcessedData.file_sources"><code class="docutils literal notranslate"><span class="pre">ProcessedData.file_sources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor"><code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.validate_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.validate_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.detect_encoding"><code class="docutils literal notranslate"><span class="pre">DataProcessor.detect_encoding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_text_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_text_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_csv_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_csv_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.split_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.split_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.save_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.save_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.data_processor.DataProcessor.load_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.load_processed_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.base_model"><code class="docutils literal notranslate"><span class="pre">ModelConfig.base_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.max_length"><code class="docutils literal notranslate"><span class="pre">ModelConfig.max_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ModelConfig.num_labels"><code class="docutils literal notranslate"><span class="pre">ModelConfig.num_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_r"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_alpha"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.TrainingConfig.lora_dropout"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_dropout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig"><code class="docutils literal notranslate"><span class="pre">DataConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.supported_formats"><code class="docutils literal notranslate"><span class="pre">DataConfig.supported_formats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.max_file_size_mb"><code class="docutils literal notranslate"><span class="pre">DataConfig.max_file_size_mb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.DataConfig.test_split"><code class="docutils literal notranslate"><span class="pre">DataConfig.test_split</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig"><code class="docutils literal notranslate"><span class="pre">UIConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.theme"><code class="docutils literal notranslate"><span class="pre">UIConfig.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.batch_size_labeling"><code class="docutils literal notranslate"><span class="pre">UIConfig.batch_size_labeling</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.UIConfig.update_interval"><code class="docutils literal notranslate"><span class="pre">UIConfig.update_interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.load_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-backend.model_manager">Model Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager"><code class="docutils literal notranslate"><span class="pre">ModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">ModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">ModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.batch_predict"><code class="docutils literal notranslate"><span class="pre">ModelManager.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">ModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.model_manager.ModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.FeedbackDataset"><code class="docutils literal notranslate"><span class="pre">FeedbackDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.prepare_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.fine_tune_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.incremental_fine_tune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.evaluate_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_training_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.save_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling"><code class="docutils literal notranslate"><span class="pre">SmartSampling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.calculate_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.update_sample_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples"><code class="docutils literal notranslate"><span class="pre">SmartSampling.get_most_uncertain_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.prepare_reward_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.fine_tune_with_adaptive_lr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_smart_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.reward_based_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_training_analytics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.app_core">Frontend Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication"><code class="docutils literal notranslate"><span class="pre">RFTApplication</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">RFTApplication.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_next_document"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_next_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.submit_feedback"><code class="docutils literal notranslate"><span class="pre">RFTApplication.submit_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_performance_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.update_available_labels"><code class="docutils literal notranslate"><span class="pre">RFTApplication.update_available_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.reset_application"><code class="docutils literal notranslate"><span class="pre">RFTApplication.reset_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#frontend.app_core.RFTApplication.export_training_data"><code class="docutils literal notranslate"><span class="pre">RFTApplication.export_training_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api_reference.html#module-frontend.components.data_upload">UI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_data_upload_interface"><code class="docutils literal notranslate"><span class="pre">create_data_upload_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_upload_status_display"><code class="docutils literal notranslate"><span class="pre">create_upload_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.data_upload.create_dataset_info_df"><code class="docutils literal notranslate"><span class="pre">create_dataset_info_df()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_labeling_interface"><code class="docutils literal notranslate"><span class="pre">create_labeling_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_prediction_display"><code class="docutils literal notranslate"><span class="pre">create_prediction_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.labeling.create_progress_display"><code class="docutils literal notranslate"><span class="pre">create_progress_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_interface"><code class="docutils literal notranslate"><span class="pre">create_performance_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_performance_plots"><code class="docutils literal notranslate"><span class="pre">create_performance_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#frontend.components.performance.create_current_metrics_display"><code class="docutils literal notranslate"><span class="pre">create_current_metrics_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Responsive Fine-Tuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">backend.advanced_trainer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for backend.advanced_trainer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainingArguments</span><span class="p">,</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">DataCollatorWithPadding</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">peft</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_peft_model</span><span class="p">,</span> <span class="n">LoraConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">trl</span><span class="w"> </span><span class="kn">import</span> <span class="n">RewardTrainer</span><span class="p">,</span> <span class="n">RewardConfig</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">backend.enhanced_model_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnhancedModelManager</span><span class="p">,</span> <span class="n">FeedbackDataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">backend.data_processor</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessedData</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AdaptiveLearningRate">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdaptiveLearningRate</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adaptive learning rate scheduler based on feedback quality&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">min_lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_lr</span> <span class="o">=</span> <span class="n">initial_lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_lr</span> <span class="o">=</span> <span class="n">min_lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_lr</span> <span class="o">=</span> <span class="n">max_lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span> <span class="o">=</span> <span class="n">initial_lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        
+<div class="viewcode-block" id="AdaptiveLearningRate.update">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update learning rate based on performance&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span>
+
+        <span class="c1"># Calculate trends. If we don&#39;t have enough history for two 3-point windows,</span>
+        <span class="c1"># fall back to a simple first-to-last comparison to determine trend.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">accuracy_trend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">loss_trend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">accuracy_trend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accuracy_history</span><span class="p">)[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">loss_trend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loss_history</span><span class="p">)[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+        
+        <span class="c1"># Adjust learning rate</span>
+        <span class="k">if</span> <span class="n">accuracy_trend</span> <span class="o">&gt;</span> <span class="mf">0.02</span> <span class="ow">and</span> <span class="n">loss_trend</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">:</span>  <span class="c1"># Improving</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">accuracy_trend</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.01</span> <span class="ow">or</span> <span class="n">loss_trend</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>  <span class="c1"># Worsening</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_lr</span><span class="p">)</span>
+        
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Learning rate adjusted to: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_lr</span></div>
+</div>
+
+
+<div class="viewcode-block" id="SmartSampling">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.SmartSampling">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SmartSampling</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Smart sampling for selecting most informative samples&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;uncertainty&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">strategy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_uncertainties</span> <span class="o">=</span> <span class="p">{}</span>
+        
+<div class="viewcode-block" id="SmartSampling.calculate_uncertainty">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate uncertainty using entropy&quot;&quot;&quot;</span>
+        <span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span></div>
+
+    
+<div class="viewcode-block" id="SmartSampling.update_sample_uncertainty">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_sample_uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update uncertainty for a sample&quot;&quot;&quot;</span>
+        <span class="n">uncertainty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_uncertainty</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sample_uncertainties</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="n">uncertainty</span></div>
+
+    
+<div class="viewcode-block" id="SmartSampling.get_most_uncertain_samples">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_most_uncertain_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the n most uncertain samples&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_uncertainties</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">texts</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+        
+        <span class="c1"># Get uncertainties for available texts</span>
+        <span class="n">uncertainties</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_uncertainties</span><span class="p">:</span>
+                <span class="n">uncertainties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_uncertainties</span><span class="p">[</span><span class="n">text</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">uncertainties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">text</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>  <span class="c1"># Default medium uncertainty</span>
+        
+        <span class="c1"># Sort by uncertainty (descending)</span>
+        <span class="n">uncertainties</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">text</span> <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">uncertainties</span><span class="p">[:</span><span class="n">n</span><span class="p">]]</span></div>
+</div>
+
+
+<div class="viewcode-block" id="RewardBasedTrainer">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RewardBasedTrainer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reward-based training using TRL for preference learning&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_manager</span><span class="p">:</span> <span class="n">EnhancedModelManager</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_manager</span> <span class="o">=</span> <span class="n">model_manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_history</span> <span class="o">=</span> <span class="p">[]</span>
+        
+<div class="viewcode-block" id="RewardBasedTrainer.compute_reward">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">user_feedback</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correct_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute reward based on prediction quality and user feedback&quot;&quot;&quot;</span>
+        <span class="n">predicted_label</span> <span class="o">=</span> <span class="n">prediction</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;predicted_label&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">confidence</span> <span class="o">=</span> <span class="n">prediction</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">user_feedback</span> <span class="o">==</span> <span class="s2">&quot;Correct&quot;</span><span class="p">:</span>
+            <span class="c1"># Reward correct predictions with higher confidence</span>
+            <span class="n">base_reward</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="n">confidence_bonus</span> <span class="o">=</span> <span class="n">confidence</span> <span class="o">*</span> <span class="mf">0.5</span>
+            <span class="k">return</span> <span class="n">base_reward</span> <span class="o">+</span> <span class="n">confidence_bonus</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Penalize incorrect predictions, but less if model was uncertain</span>
+            <span class="n">base_penalty</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="n">uncertainty_bonus</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>  <span class="c1"># Less penalty if uncertain</span>
+            <span class="k">return</span> <span class="n">base_penalty</span> <span class="o">+</span> <span class="n">uncertainty_bonus</span></div>
+
+    
+<div class="viewcode-block" id="RewardBasedTrainer.prepare_reward_data">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_reward_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare data for reward training&quot;&quot;&quot;</span>
+        <span class="n">reward_samples</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">feedback</span> <span class="ow">in</span> <span class="n">feedback_data</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">feedback</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+            <span class="n">user_label</span> <span class="o">=</span> <span class="n">feedback</span><span class="p">[</span><span class="s1">&#39;user_label&#39;</span><span class="p">]</span>
+            <span class="n">model_pred</span> <span class="o">=</span> <span class="n">feedback</span><span class="p">[</span><span class="s1">&#39;model_prediction&#39;</span><span class="p">]</span>
+            
+            <span class="n">reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_reward</span><span class="p">(</span><span class="n">model_pred</span><span class="p">,</span> 
+                                       <span class="s2">&quot;Correct&quot;</span> <span class="k">if</span> <span class="n">model_pred</span><span class="p">[</span><span class="s1">&#39;predicted_label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">user_label</span> <span class="k">else</span> <span class="s2">&quot;Incorrect&quot;</span><span class="p">,</span>
+                                       <span class="n">user_label</span><span class="p">)</span>
+            
+            <span class="n">reward_samples</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                <span class="s1">&#39;reward&#39;</span><span class="p">:</span> <span class="n">reward</span><span class="p">,</span>
+                <span class="s1">&#39;user_label&#39;</span><span class="p">:</span> <span class="n">user_label</span>
+            <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">reward_samples</span></div>
+</div>
+
+
+<div class="viewcode-block" id="AdvancedModelManager">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdvancedModelManager</span><span class="p">(</span><span class="n">EnhancedModelManager</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enhanced model manager with advanced training features&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_lr</span> <span class="o">=</span> <span class="n">AdaptiveLearningRate</span><span class="p">(</span><span class="n">initial_lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smart_sampler</span> <span class="o">=</span> <span class="n">SmartSampling</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_trainer</span> <span class="o">=</span> <span class="n">RewardBasedTrainer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span> <span class="o">=</span> <span class="p">[]</span>
+        
+<div class="viewcode-block" id="AdvancedModelManager.fine_tune_with_adaptive_lr">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fine_tune_with_adaptive_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processed_data</span><span class="p">:</span> <span class="n">ProcessedData</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fine-tune with adaptive learning rate&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Prepare dataset</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_dataset</span><span class="p">(</span><span class="n">processed_data</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;no_data&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Update learning rate based on recent performance</span>
+            <span class="n">recent_accuracy</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># Default</span>
+            <span class="n">recent_loss</span> <span class="o">=</span> <span class="mf">1.0</span>      <span class="c1"># Default</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">:</span>
+                <span class="n">recent_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">recent_accuracy</span> <span class="o">=</span> <span class="n">recent_metrics</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">recent_loss</span> <span class="o">=</span> <span class="n">recent_metrics</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            
+            <span class="n">current_lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_lr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">recent_accuracy</span><span class="p">,</span> <span class="n">recent_loss</span><span class="p">)</span>
+            
+            <span class="c1"># Training arguments with adaptive LR</span>
+            <span class="n">training_args</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
+                <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./training_output&quot;</span><span class="p">,</span>
+                <span class="n">overwrite_output_dir</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">num_train_epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+                <span class="n">max_steps</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">max_steps</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">*</span> <span class="n">epochs</span><span class="p">),</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="n">current_lr</span><span class="p">,</span>
+                <span class="n">warmup_steps</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="n">logging_steps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                <span class="n">save_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">evaluation_strategy</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+                <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="p">,</span>
+                <span class="n">load_best_model_at_end</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">remove_unused_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">report_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">dataloader_pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            
+            <span class="c1"># Data collator</span>
+            <span class="n">data_collator</span> <span class="o">=</span> <span class="n">DataCollatorWithPadding</span><span class="p">(</span>
+                <span class="n">tokenizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span>
+                <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">max_length</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">max_length</span><span class="p">,</span>
+            <span class="p">)</span>
+            
+            <span class="c1"># Trainer</span>
+            <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+                <span class="n">train_dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+                <span class="n">data_collator</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+                <span class="n">tokenizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span>
+            <span class="p">)</span>
+            
+            <span class="c1"># Train</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting adaptive training with LR: </span><span class="si">{</span><span class="n">current_lr</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">train_result</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            
+            <span class="c1"># Store metrics</span>
+            <span class="n">training_metrics</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;epoch&#39;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">,</span>
+                <span class="s1">&#39;training_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">),</span>
+                <span class="s1">&#39;train_loss&#39;</span><span class="p">:</span> <span class="n">train_result</span><span class="o">.</span><span class="n">training_loss</span><span class="p">,</span>
+                <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="n">current_lr</span><span class="p">,</span>
+                <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+            <span class="p">}</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">training_metrics</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">train_result</span><span class="o">.</span><span class="n">training_loss</span><span class="p">,</span>
+                <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="n">current_lr</span><span class="p">,</span>
+                <span class="s2">&quot;samples_trained&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="p">}</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adaptive training failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span></div>
+
+    
+<div class="viewcode-block" id="AdvancedModelManager.get_smart_samples">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_smart_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get smartly sampled documents for labeling&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="c1"># Use smart sampling to select most uncertain samples</span>
+        <span class="n">selected_texts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smart_sampler</span><span class="o">.</span><span class="n">get_most_uncertain_samples</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">n</span>
+        <span class="p">)</span>
+        
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">selected_texts</span><span class="p">:</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_prediction</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+                <span class="s1">&#39;prediction&#39;</span><span class="p">:</span> <span class="n">prediction</span><span class="p">,</span>
+                <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="nb">next</span><span class="p">((</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="o">.</span><span class="n">metadata</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">text</span><span class="p">),</span> <span class="p">{})</span>
+            <span class="p">})</span>
+            
+            <span class="c1"># Update uncertainty for future sampling</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">smart_sampler</span><span class="o">.</span><span class="n">update_sample_uncertainty</span><span class="p">(</span>
+                <span class="n">text</span><span class="p">,</span> <span class="n">prediction</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;probabilities&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">samples</span></div>
+
+    
+<div class="viewcode-block" id="AdvancedModelManager.reward_based_training">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reward_based_training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform reward-based training using TRL&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">feedback_data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;no_data&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Prepare reward data</span>
+            <span class="n">reward_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward_trainer</span><span class="o">.</span><span class="n">prepare_reward_data</span><span class="p">(</span><span class="n">feedback_data</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reward_samples</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;insufficient_data&quot;</span><span class="p">}</span>
+            
+            <span class="c1"># Convert to dataset format (simplified - actual TRL implementation would be more complex)</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">reward_samples</span><span class="p">]</span>
+            <span class="n">rewards</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;reward&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">reward_samples</span><span class="p">]</span>
+            
+            <span class="c1"># For now, use standard fine-tuning with reward-weighted sampling</span>
+            <span class="c1"># In a full implementation, we would use TRL&#39;s RewardTrainer</span>
+            <span class="n">processed_data</span> <span class="o">=</span> <span class="n">ProcessedData</span><span class="p">(</span>
+                <span class="n">texts</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span>
+                <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">texts</span><span class="p">),</span>  <span class="c1"># Placeholder - rewards would be used differently</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="n">reward_samples</span><span class="p">,</span>
+                <span class="n">file_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reward_training&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fine_tune_with_adaptive_lr</span><span class="p">(</span><span class="n">processed_data</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;success&quot;</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward-based training completed with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reward_samples</span><span class="p">)</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reward_trainer</span><span class="o">.</span><span class="n">reward_history</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">reward_samples</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="n">result</span>
+            
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reward-based training failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span></div>
+
+    
+<div class="viewcode-block" id="AdvancedModelManager.get_training_analytics">
+<a class="viewcode-back" href="../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_training_analytics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get comprehensive training analytics&quot;&quot;&quot;</span>
+        <span class="n">base_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_model_info</span><span class="p">()</span>
+        
+        <span class="n">analytics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="o">**</span><span class="n">base_info</span><span class="p">,</span>
+            <span class="s1">&#39;adaptive_learning_rate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_lr</span><span class="o">.</span><span class="n">current_lr</span><span class="p">,</span>
+            <span class="s1">&#39;training_sessions_count&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">),</span>
+            <span class="s1">&#39;reward_training_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reward_trainer</span><span class="o">.</span><span class="n">reward_history</span><span class="p">),</span>
+            <span class="s1">&#39;smart_sampling_enabled&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;performance_trend&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_performance_trend</span><span class="p">()</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">:</span>
+            <span class="n">recent_training</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">analytics</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s1">&#39;recent_training_loss&#39;</span><span class="p">:</span> <span class="n">recent_training</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;train_loss&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;recent_learning_rate&#39;</span><span class="p">:</span> <span class="n">recent_training</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;recent_training_samples&#39;</span><span class="p">:</span> <span class="n">recent_training</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;training_samples&#39;</span><span class="p">)</span>
+            <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">analytics</span></div>
+
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_performance_trend</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate performance trend based on recent metrics&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;stable&quot;</span>
+        
+        <span class="n">recent_losses</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;train_loss&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_history</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">recent_losses</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;stable&quot;</span>
+        
+        <span class="n">loss_trend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">recent_losses</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">recent_losses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">loss_trend</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;improving&quot;</span>
+        <span class="k">elif</span> <span class="n">loss_trend</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;worsening&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;stable&quot;</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Responsive Fine-Tuner contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

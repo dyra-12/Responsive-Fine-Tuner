@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+recursive-include config *.yaml
+recursive-include data *
+recursive-include frontend *.py
+recursive-include backend *.py
+recursive-include deployment *

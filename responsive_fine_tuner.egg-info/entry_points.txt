@@ -1,0 +1,2 @@
+[console_scripts]
+rft = rft.cli:main

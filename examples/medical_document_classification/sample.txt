@@ -1,0 +1,3 @@
+Patient presented with persistent cough and mild fever. ECG and chest X-ray ordered. | label:Diagnosis
+
+Treatment plan includes inhaled corticosteroids and follow-up in two weeks. | label:Treatment

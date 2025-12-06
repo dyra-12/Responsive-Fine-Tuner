@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>frontend.components.labeling &mdash; Responsive Fine-Tuner API</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Responsive Fine-Tuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Documentation Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#building-the-docs">Building the Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-backend.data_processor">Data Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.ProcessedData"><code class="docutils literal notranslate"><span class="pre">ProcessedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.ProcessedData.texts"><code class="docutils literal notranslate"><span class="pre">ProcessedData.texts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.ProcessedData.labels"><code class="docutils literal notranslate"><span class="pre">ProcessedData.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.ProcessedData.metadata"><code class="docutils literal notranslate"><span class="pre">ProcessedData.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.ProcessedData.file_sources"><code class="docutils literal notranslate"><span class="pre">ProcessedData.file_sources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor"><code class="docutils literal notranslate"><span class="pre">DataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.validate_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.validate_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.detect_encoding"><code class="docutils literal notranslate"><span class="pre">DataProcessor.detect_encoding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.process_text_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_text_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.process_csv_file"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_csv_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">DataProcessor.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.split_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.split_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.save_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.save_processed_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.data_processor.DataProcessor.load_processed_data"><code class="docutils literal notranslate"><span class="pre">DataProcessor.load_processed_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-backend.config">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.config.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.ModelConfig.base_model"><code class="docutils literal notranslate"><span class="pre">ModelConfig.base_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.ModelConfig.max_length"><code class="docutils literal notranslate"><span class="pre">ModelConfig.max_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.ModelConfig.num_labels"><code class="docutils literal notranslate"><span class="pre">ModelConfig.num_labels</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig"><code class="docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.batch_size"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.batch_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.max_steps"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.lora_r"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.lora_alpha"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.TrainingConfig.lora_dropout"><code class="docutils literal notranslate"><span class="pre">TrainingConfig.lora_dropout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.config.DataConfig"><code class="docutils literal notranslate"><span class="pre">DataConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.DataConfig.supported_formats"><code class="docutils literal notranslate"><span class="pre">DataConfig.supported_formats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.DataConfig.max_file_size_mb"><code class="docutils literal notranslate"><span class="pre">DataConfig.max_file_size_mb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.DataConfig.test_split"><code class="docutils literal notranslate"><span class="pre">DataConfig.test_split</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.config.UIConfig"><code class="docutils literal notranslate"><span class="pre">UIConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.UIConfig.theme"><code class="docutils literal notranslate"><span class="pre">UIConfig.theme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.UIConfig.batch_size_labeling"><code class="docutils literal notranslate"><span class="pre">UIConfig.batch_size_labeling</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.UIConfig.update_interval"><code class="docutils literal notranslate"><span class="pre">UIConfig.update_interval</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.ConfigManager.load_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.load_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-backend.model_manager">Model Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager"><code class="docutils literal notranslate"><span class="pre">ModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">ModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">ModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.batch_predict"><code class="docutils literal notranslate"><span class="pre">ModelManager.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">ModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.model_manager.ModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">ModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.FeedbackDataset"><code class="docutils literal notranslate"><span class="pre">FeedbackDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.initialize_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.initialize_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.setup_lora"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.setup_lora()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.prepare_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.fine_tune_step"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.fine_tune_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.incremental_fine_tune"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.incremental_fine_tune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.evaluate_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.evaluate_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_training_history"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_training_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.save_model"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.save_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_prediction"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_prediction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.add_feedback"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.add_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.enhanced_model_manager.EnhancedModelManager.get_model_info"><code class="docutils literal notranslate"><span class="pre">EnhancedModelManager.get_model_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdaptiveLearningRate.update"><code class="docutils literal notranslate"><span class="pre">AdaptiveLearningRate.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.SmartSampling"><code class="docutils literal notranslate"><span class="pre">SmartSampling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.SmartSampling.calculate_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.calculate_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.SmartSampling.update_sample_uncertainty"><code class="docutils literal notranslate"><span class="pre">SmartSampling.update_sample_uncertainty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.SmartSampling.get_most_uncertain_samples"><code class="docutils literal notranslate"><span class="pre">SmartSampling.get_most_uncertain_samples()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.compute_reward"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.RewardBasedTrainer.prepare_reward_data"><code class="docutils literal notranslate"><span class="pre">RewardBasedTrainer.prepare_reward_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdvancedModelManager"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.fine_tune_with_adaptive_lr"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.fine_tune_with_adaptive_lr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_smart_samples"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_smart_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.reward_based_training"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.reward_based_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#backend.advanced_trainer.AdvancedModelManager.get_training_analytics"><code class="docutils literal notranslate"><span class="pre">AdvancedModelManager.get_training_analytics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-frontend.app_core">Frontend Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication"><code class="docutils literal notranslate"><span class="pre">RFTApplication</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.process_uploaded_files"><code class="docutils literal notranslate"><span class="pre">RFTApplication.process_uploaded_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.get_next_document"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_next_document()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.submit_feedback"><code class="docutils literal notranslate"><span class="pre">RFTApplication.submit_feedback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.get_performance_metrics"><code class="docutils literal notranslate"><span class="pre">RFTApplication.get_performance_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.update_available_labels"><code class="docutils literal notranslate"><span class="pre">RFTApplication.update_available_labels()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.reset_application"><code class="docutils literal notranslate"><span class="pre">RFTApplication.reset_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api_reference.html#frontend.app_core.RFTApplication.export_training_data"><code class="docutils literal notranslate"><span class="pre">RFTApplication.export_training_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api_reference.html#module-frontend.components.data_upload">UI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.data_upload.create_data_upload_interface"><code class="docutils literal notranslate"><span class="pre">create_data_upload_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.data_upload.create_upload_status_display"><code class="docutils literal notranslate"><span class="pre">create_upload_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.data_upload.create_dataset_info_df"><code class="docutils literal notranslate"><span class="pre">create_dataset_info_df()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.labeling.create_labeling_interface"><code class="docutils literal notranslate"><span class="pre">create_labeling_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.labeling.create_prediction_display"><code class="docutils literal notranslate"><span class="pre">create_prediction_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.labeling.create_progress_display"><code class="docutils literal notranslate"><span class="pre">create_progress_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.performance.create_performance_interface"><code class="docutils literal notranslate"><span class="pre">create_performance_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.performance.create_performance_plots"><code class="docutils literal notranslate"><span class="pre">create_performance_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api_reference.html#frontend.components.performance.create_current_metrics_display"><code class="docutils literal notranslate"><span class="pre">create_current_metrics_display()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Responsive Fine-Tuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">frontend.components.labeling</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for frontend.components.labeling</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<div class="viewcode-block" id="create_labeling_interface">
+<a class="viewcode-back" href="../../../api_reference.html#frontend.components.labeling.create_labeling_interface">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_labeling_interface</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">next_doc_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gr</span><span class="o">.</span><span class="n">Blocks</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the interactive labeling interface&quot;&quot;&quot;</span>
+    
+    <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Blocks</span><span class="p">()</span> <span class="k">as</span> <span class="n">interface</span><span class="p">:</span>
+        <span class="n">gr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;## 🎯 Interactive Labeling&quot;</span><span class="p">)</span>
+        <span class="n">gr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">&quot;Review model predictions and provide feedback to improve the model.&quot;</span><span class="p">)</span>
+        
+        <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Row</span><span class="p">():</span>
+            <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                <span class="c1"># Document display</span>
+                <span class="n">document_display</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Current Document&quot;</span><span class="p">,</span>
+                    <span class="n">lines</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                    <span class="n">max_lines</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="n">show_copy_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">container</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                
+                <span class="c1"># Progress info</span>
+                <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Row</span><span class="p">():</span>
+                    <span class="n">progress_text</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Progress&quot;</span><span class="p">,</span>
+                        <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">scale</span><span class="o">=</span><span class="mi">3</span>
+                    <span class="p">)</span>
+                    <span class="n">progress_bar</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Slider</span><span class="p">(</span>
+                        <span class="n">minimum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">maximum</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                        <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Completion %&quot;</span><span class="p">,</span>
+                        <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">show_label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">scale</span><span class="o">=</span><span class="mi">7</span>
+                    <span class="p">)</span>
+            
+            <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="c1"># Model prediction</span>
+                <span class="n">model_prediction</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Model Prediction&quot;</span><span class="p">,</span>
+                    <span class="n">num_top_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">container</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                
+                <span class="c1"># Confidence visualization</span>
+                <span class="n">confidence_plot</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Plot</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Prediction Confidence&quot;</span><span class="p">,</span>
+                    <span class="n">container</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+                
+                <span class="c1"># User feedback section</span>
+                <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Group</span><span class="p">():</span>
+                    <span class="n">user_feedback</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Radio</span><span class="p">(</span>
+                        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Correct&quot;</span><span class="p">,</span> <span class="s2">&quot;Incorrect&quot;</span><span class="p">],</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Is this prediction correct?&quot;</span><span class="p">,</span>
+                        <span class="n">container</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">)</span>
+                    
+                    <span class="n">correct_label</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                        <span class="n">choices</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">available_labels</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Correct Label (if prediction is wrong)&quot;</span><span class="p">,</span>
+                        <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">container</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">)</span>
+                
+                <span class="n">submit_btn</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                    <span class="s2">&quot;Submit Feedback &amp; Next&quot;</span><span class="p">,</span> 
+                    <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;primary&quot;</span><span class="p">,</span>
+                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;lg&quot;</span>
+                <span class="p">)</span>
+                
+                <span class="n">next_btn</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                    <span class="s2">&quot;Skip &amp; Next Document&quot;</span><span class="p">,</span>
+                    <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;secondary&quot;</span>
+                <span class="p">)</span>
+        
+        <span class="c1"># Hidden components for state management</span>
+        <span class="n">current_doc_data</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">State</span><span class="p">()</span>
+        
+        <span class="c1"># Event handlers</span>
+        <span class="n">user_feedback</span><span class="o">.</span><span class="n">change</span><span class="p">(</span>
+            <span class="n">fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">gr</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;Incorrect&quot;</span><span class="p">)),</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="n">user_feedback</span><span class="p">,</span>
+            <span class="n">outputs</span><span class="o">=</span><span class="n">correct_label</span>
+        <span class="p">)</span>
+        
+        <span class="n">submit_btn</span><span class="o">.</span><span class="n">click</span><span class="p">(</span>
+            <span class="n">fn</span><span class="o">=</span><span class="n">feedback_callback</span><span class="p">,</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">document_display</span><span class="p">,</span> <span class="n">user_feedback</span><span class="p">,</span> <span class="n">correct_label</span><span class="p">],</span>
+            <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">progress_text</span><span class="p">,</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">current_doc_data</span><span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span>
+            <span class="n">fn</span><span class="o">=</span><span class="n">next_doc_callback</span><span class="p">,</span>
+            <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">document_display</span><span class="p">,</span> <span class="n">model_prediction</span><span class="p">,</span> <span class="n">confidence_plot</span><span class="p">,</span> <span class="n">progress_text</span><span class="p">,</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">current_doc_data</span><span class="p">]</span>
+        <span class="p">)</span>
+        
+        <span class="n">next_btn</span><span class="o">.</span><span class="n">click</span><span class="p">(</span>
+            <span class="n">fn</span><span class="o">=</span><span class="n">next_doc_callback</span><span class="p">,</span>
+            <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">document_display</span><span class="p">,</span> <span class="n">model_prediction</span><span class="p">,</span> <span class="n">confidence_plot</span><span class="p">,</span> <span class="n">progress_text</span><span class="p">,</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">current_doc_data</span><span class="p">]</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">interface</span></div>
+
+
+<div class="viewcode-block" id="create_prediction_display">
+<a class="viewcode-back" href="../../../api_reference.html#frontend.components.labeling.create_prediction_display">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_prediction_display</span><span class="p">(</span><span class="n">prediction_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create model prediction display and confidence plot&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;error&quot;</span> <span class="ow">in</span> <span class="n">prediction_data</span><span class="p">:</span>
+        <span class="c1"># Error case</span>
+        <span class="n">label_display</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+        <span class="p">}</span>
+        
+        <span class="c1"># Create error plot</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">add_annotation</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Prediction Error&quot;</span><span class="p">,</span>
+            <span class="n">xref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Prediction Confidence&quot;</span><span class="p">,</span>
+            <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Classes&quot;</span><span class="p">,</span>
+            <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Confidence&quot;</span><span class="p">,</span>
+            <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Normal prediction case</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Class </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prediction_data</span><span class="p">[</span><span class="s2">&quot;probabilities&quot;</span><span class="p">]))]</span>
+        <span class="n">confidences</span> <span class="o">=</span> <span class="n">prediction_data</span><span class="p">[</span><span class="s2">&quot;probabilities&quot;</span><span class="p">]</span>
+        
+        <span class="n">label_display</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="nb">float</span><span class="p">(</span><span class="n">confidences</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+        <span class="p">}</span>
+        
+        <span class="c1"># Create confidence plot</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">confidences</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Prediction Confidence&quot;</span><span class="p">,</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;Classes&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;Confidence&#39;</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">marker_color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">prediction_data</span><span class="p">[</span><span class="s2">&quot;predicted_label&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;lightblue&#39;</span> 
+                         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))]</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+            <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">label_display</span><span class="p">,</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="create_progress_display">
+<a class="viewcode-back" href="../../../api_reference.html#frontend.components.labeling.create_progress_display">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_progress_display</span><span class="p">(</span><span class="n">current_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">total_documents</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create progress text and percentage&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">total_documents</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;No documents available&quot;</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="n">percentage</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_index</span> <span class="o">/</span> <span class="n">total_documents</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">progress_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Document </span><span class="si">{</span><span class="n">current_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">total_documents</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span>
+    
+    <span class="k">return</span> <span class="n">progress_text</span><span class="p">,</span> <span class="n">percentage</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Responsive Fine-Tuner contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -21,11 +21,23 @@ class RFTInterface:
     def setup_interface(self):
         """Setup the complete Gradio interface"""
         
-        with gr.Blocks(
-            title="Responsive Fine-Tuner",
-            theme=gr.themes.Soft(),
-            css=self._get_custom_css()
-        ) as interface:
+        # Some Gradio versions do not accept a `theme` kwarg on BlockContext.
+        # Try with `theme` first and fall back to a no-theme Blocks if needed.
+        try:
+            with gr.Blocks(
+                title="Responsive Fine-Tuner",
+                theme=gr.themes.Soft(),
+                css=self._get_custom_css()
+            ) as interface:
+                pass  # placeholder to establish the context in the try-block
+        except TypeError:
+            # Older Gradio versions may not accept `theme` or `css` kwargs.
+            # Fall back to creating a Blocks with only the title.
+            with gr.Blocks(title="Responsive Fine-Tuner") as interface:
+                pass
+
+        # Re-open the established context to populate the interface elements
+        with interface:
             
             # Header
             gr.Markdown("# 🎯 Responsive Fine-Tuner")

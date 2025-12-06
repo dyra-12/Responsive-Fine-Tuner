@@ -1,0 +1,138 @@
+Metadata-Version: 2.4
+Name: responsive-fine-tuner
+Version: 0.1.0
+Summary: Interactive tool for fine-tuning language models with human feedback
+Home-page: https://github.com/dyra-12/Responsive-Fine-Tuner
+Author: dyra-12
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: torch>=2.0.0
+Requires-Dist: transformers>=4.30.0
+Requires-Dist: datasets>=2.12.0
+Requires-Dist: accelerate>=0.20.0
+Requires-Dist: peft>=0.4.0
+Requires-Dist: trl>=0.4.7
+Requires-Dist: bitsandbytes>=0.41.0
+Requires-Dist: gradio>=4.0.0
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: scikit-learn>=1.0.0
+Requires-Dist: tqdm>=4.64.0
+Requires-Dist: python-dotenv>=0.19.0
+Requires-Dist: PyYAML>=6.0
+Requires-Dist: plotly>=5.0.0
+Requires-Dist: PyJWT>=2.6.0
+Requires-Dist: pytest>=7.0.0
+Requires-Dist: pytest-mock>=3.10.0
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+<div align="center">
+
+# Responsive Fine-Tuner (RFT)
+
+Human-in-the-loop fine-tuning for domain experts — no notebooks, no ML background required.
+
+![Responsive Fine-Tuner demo](assets/rft-workflow.gif)
+
+<sup>Replace `assets/rft-workflow.gif` with a short screen recording that shows upload → labeling → improved predictions.</sup>
+
+</div>
+
+## Why RFT?
+- **Guided UX for Subject Matter Experts** — drag-and-drop files, provide thumbs-up/down feedback, and instantly test the updated model.
+- **LoRA-powered updates** — adapts small LMs (DistilBERT, TinyLlama, etc.) in minutes using PEFT + TRL.
+- **Decision transparency** — confidence bars, progress indicators, and performance timelines keep users in the loop.
+- **Deploy anywhere** — run locally, inside Docker, or as part of your enterprise workflow (`run_enterprise.py`).
+
+## Feature Tour
+- **Data Upload Hub** — accepts `.txt` and `.csv`, auto-detects encoding, previews dataset health, and creates train/test splits.
+- **Interactive Labeling** — shows predictions, confidence plots, and metadata context; corrections stream into the feedback buffer.
+- **Feedback-driven Training** — LoRA adapters retrain incrementally after each feedback batch, and TRL-based reward shaping nudges the model toward user intent.
+- **Performance Radar** — accuracy deltas, labeling velocity, and adaptive learning-rate logs provide an instant before/after comparison.
+- **Configurable UX** — sliders and dropdowns for model choice, learning rate, batch size, UI refresh cadence, and auto-retrain policies.
+
+## Quick Start
+
+```bash
+git clone https://github.com/dyra-12/Responsive-Fine-Tuner.git
+cd Responsive-Fine-Tuner
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+PYTHONPATH=. python run_app.py --port 7860 --config config/settings.yaml
+```
+
+Optional:
+- `python run_app.py --share` to generate a Gradio share link for demos.
+- `python run_advanced_app.py` to launch the adaptive training playground (advanced analytics + TRL hooks).
+- `python run_enterprise.py` to boot the Streamlit dashboard tailored for enterprise pilots.
+
+## Documentation
+- `docs/Tutorial.ipynb` — notebook walkthrough covering ingestion, labeling, and feedback-driven fine-tuning for the sample dataset.
+- `docs/api/` — Sphinx-powered API docs. Build with `cd docs/api && pip install -r requirements-docs.txt && make html`.
+
+## Workflow at a Glance
+1. **Upload** — drop a folder of `.txt` or `.csv` files. RFT auto-detects encoding, sanitizes text, and surfaces dataset stats.
+2. **Label** — step through samples, accept/correct predictions, or assign new labels from the dropdown.
+3. **Fine-Tune** — each feedback batch triggers a LoRA update; adaptive LR keeps training stable even on tiny datasets.
+4. **Validate** — performance tab shows accuracy lifts, loss trends, and model metadata (parameter counts, adapter usage).
+5. **Export** — download labeled data or adapters for downstream experiments (coming soon in `maintenance/`).
+
+## Architecture Overview
+
+```text
+┌──────────────┐      ┌───────────────────┐      ┌─────────────────────┐
+│  Gradio UI   │────▶│  RFTApplication   │────▶│  EnhancedModelManager │
+│ (frontend/)  │◀───▶│ (frontend/app_core.py) │  │  + Advanced Trainer  │
+└──────────────┘      └───────────────────┘      └─────────────────────┘
+				 │                        │                           │
+				 ▼                        ▼                           ▼
+	Components/UX          DataProcessor                PEFT LoRA adapters,
+	(upload, labeling,     (encoding detection,         TRL reward loops,
+	analytics tabs)        splitting, metadata)        smart sampling
+```
+
+- `frontend/main_app.py` wires Gradio Blocks into tabs (Upload, Labeling, Performance, Settings).
+- `frontend/components/*` host modular UI builders and Plotly visuals.
+- `backend/data_processor.py` cleans and splits datasets with encoding detection + validation.
+- `backend/enhanced_model_manager.py` manages tokenizer, LoRA layers, incremental fine-tuning, metrics, and adapter export.
+- `backend/advanced_trainer.py` adds adaptive learning rates, smart sampling, and TRL reward-based loops.
+
+## Configuration
+- Default config: `config/settings.yaml` (model, tokenizer max length, batch sizes, data limits).
+- Enterprise overrides: `config/enterprise.yaml`.
+- Update paths via CLI flag: `python run_app.py --config config/enterprise.yaml`.
+
+## Testing & Quality Gates
+- `python run_final_tests.py` — meta-runner that executes all phase suites.
+- `python run_phase<n>.py` — targeted regression suites for each milestone.
+- `pytest tests/test_phase3.py -k labeling` — run individual specs while iterating on a feature.
+
+## Roadmap (excerpt)
+- [ ] Auto-export LoRA adapters + TensorBoard traces.
+- [ ] Multi-user sessions with role-based auth hooks (`backend/auth.py`).
+- [ ] Dataset versioning + rollback via `maintenance/backup.py`.
+- [ ] Deeper telemetry surfaced in `monitoring/` dashboards.
+
+## Contributing
+1. Fork + branch (`feat/<my-feature>`).
+2. Run `python run_final_tests.py` before opening a PR.
+3. Add/extend docs (README, `docs/`, or the tutorial notebook) for any user-facing change.
+
+## License
+
+Distributed under the terms of the MIT License. See `LICENSE` for details.
