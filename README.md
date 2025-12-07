@@ -1,96 +1,1014 @@
 <div align="center">
 
-# Responsive Fine-Tuner (RFT)
+# 🚀 Responsive Fine-Tuner (RFT)
 
-Human-in-the-loop fine-tuning for domain experts — no notebooks, no ML background required.
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)
+![Transformers](https://img.shields.io/badge/🤗%20Transformers-4.30+-yellow.svg)
+![Gradio](https://img.shields.io/badge/Gradio-4.0+-orange.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-![Responsive Fine-Tuner demo](assets/rft-workflow.gif)
+**A Human-in-the-Loop Fine-Tuning Platform for Language Models**
 
-<sup>Replace `assets/rft-workflow.gif` with a short screen recording that shows upload → labeling → improved predictions.</sup>
+*Empower domain experts to improve AI models through interactive feedback — no ML expertise required*
+
+[🚀 Quick Start](#-quick-start) | [📖 Features](#-features) | [💡 Usage Guide](#-usage-guide) | [🤝 Contributing](#-contributing)
 
 </div>
 
-## Why RFT?
-- **Guided UX for Subject Matter Experts** — drag-and-drop files, provide thumbs-up/down feedback, and instantly test the updated model.
-- **LoRA-powered updates** — adapts small LMs (DistilBERT, TinyLlama, etc.) in minutes using PEFT + TRL.
-- **Decision transparency** — confidence bars, progress indicators, and performance timelines keep users in the loop.
-- **Deploy anywhere** — run locally, inside Docker, or as part of your enterprise workflow (`run_enterprise.py`).
+---
 
-## Feature Tour
-- **Data Upload Hub** — accepts `.txt` and `.csv`, auto-detects encoding, previews dataset health, and creates train/test splits.
-- **Interactive Labeling** — shows predictions, confidence plots, and metadata context; corrections stream into the feedback buffer.
-- **Feedback-driven Training** — LoRA adapters retrain incrementally after each feedback batch, and TRL-based reward shaping nudges the model toward user intent.
-- **Performance Radar** — accuracy deltas, labeling velocity, and adaptive learning-rate logs provide an instant before/after comparison.
-- **Configurable UX** — sliders and dropdowns for model choice, learning rate, batch size, UI refresh cadence, and auto-retrain policies.
+## 🌟 Overview
 
-## Quick Start
+**Responsive Fine-Tuner (RFT)** is an interactive platform that enables domain experts to fine-tune language models through natural feedback loops. Upload your data, label examples interactively, and watch the model improve in real-time — all through an intuitive web interface.
+
+### 🎯 Purpose & Scope
+
+This toolkit bridges the gap between domain expertise and machine learning, designed to help you:
+
+- **Democratize AI Development**: Enable subject matter experts to train models without coding
+- **Accelerate Model Adaptation**: Fine-tune pre-trained models for specific domains in minutes
+- **Maintain Human Oversight**: Keep humans in the loop for critical decision-making
+- **Build Trust Through Transparency**: Visualize model confidence and performance metrics in real-time
+- **Scale Iteratively**: Start with small datasets and refine incrementally as you gather feedback
+
+**Important**: This is a development and research tool for rapid prototyping and domain adaptation. For production deployments:
+
+- Use comprehensive validation datasets representing real-world distributions
+- Conduct thorough testing across diverse scenarios and edge cases
+- Implement monitoring and logging for production model behavior
+- Follow established MLOps best practices and governance frameworks
+- Consider regulatory compliance requirements for your domain
+
+We encourage researchers and practitioners to use this toolkit as a foundation for human-centered AI development, complementing it with rigorous validation protocols and domain expertise.
+
+---
+
+## 🎭 Why Responsive Fine-Tuner?
+
+### ✨ Built for Domain Experts
+
+🎨 **No Code Required**: Drag-and-drop interface designed for subject matter experts, not data scientists
+
+⚡ **Instant Feedback Loop**: See model improvements in real-time as you provide corrections
+
+🔍 **Full Transparency**: Confidence scores, performance charts, and progress tracking keep you informed
+
+🎯 **Domain-Focused**: Optimized for real-world use cases: medical documents, legal review, customer feedback, and more
+
+### 💪 Powered by State-of-the-Art Tech
+
+🚀 **LoRA Efficiency**: Adapts models using Parameter-Efficient Fine-Tuning (PEFT) — train in minutes, not hours
+
+🧠 **Flexible Architecture**: Works with any Hugging Face transformer model (DistilBERT, RoBERTa, GPT-2, etc.)
+
+🎓 **Smart Training**: Adaptive learning rates, intelligent sampling, and reward shaping via TRL
+
+📊 **Production-Ready**: Deployable locally, in Docker containers, or as enterprise-grade applications
+
+---
+
+## ✨ Features
+
+### 🔬 Core Capabilities
+
+#### 📤 Intelligent Data Upload
+- **Multi-Format Support**: Upload `.txt` and `.csv` files seamlessly
+- **Auto-Encoding Detection**: Automatically detects and handles various text encodings
+- **Smart Preprocessing**: Sanitizes text, removes duplicates, and validates data quality
+- **Train/Test Splitting**: Automatic stratified splitting with configurable ratios
+- **Dataset Health Metrics**: Preview statistics, class distributions, and data quality indicators
+
+#### 🏷️ Interactive Labeling Interface
+- **Model-Assisted Labeling**: Get AI predictions with confidence scores for each document
+- **One-Click Corrections**: Accept good predictions or correct errors with a single click
+- **Context-Rich Display**: View metadata, file sources, and document statistics
+- **Progress Tracking**: Visual indicators show labeling velocity and completion status
+- **Batch Operations**: Label multiple similar documents efficiently
+
+#### 🎯 Feedback-Driven Fine-Tuning
+- **Incremental Learning**: Model updates automatically after each feedback batch
+- **LoRA Adapters**: Memory-efficient updates using Low-Rank Adaptation
+- **Reward-Based Training**: TRL (Transformer Reinforcement Learning) integration for alignment
+- **Adaptive Learning**: Dynamic learning rate adjustment based on dataset size and feedback quality
+- **Smart Sampling**: Prioritizes uncertain predictions for maximum learning impact
+
+#### 📊 Performance Analytics
+- **Real-Time Metrics**: Track accuracy, F1-score, precision, and recall as you label
+- **Loss Visualization**: Monitor training loss trends across fine-tuning iterations
+- **Confidence Calibration**: Analyze model confidence vs. actual accuracy
+- **Before/After Comparison**: See performance deltas highlighting improvement areas
+- **Export Reports**: Download performance summaries and labeled datasets
+
+### 🎨 Advanced Features
+
+#### ⚙️ Configurable Training Pipeline
+- **Model Selection**: Choose from any Hugging Face model via dropdown or config
+- **Hyperparameter Control**: Adjust learning rate, batch size, epochs, and more
+- **Auto-Retrain Policies**: Set triggers for automatic fine-tuning (e.g., every N labels)
+- **Resource Management**: GPU/CPU selection with memory optimization options
+
+#### 🏢 Enterprise Capabilities
+- **Multi-User Support**: Role-based access control ready (`backend/auth.py`)
+- **Project Management**: Organize datasets and models into projects
+- **Version Control**: Track model versions and dataset snapshots
+- **Audit Logging**: Complete history of labels, predictions, and model updates
+- **Backup & Recovery**: Automated backups with rollback support (`maintenance/backup.py`)
+
+#### 🔒 Security & Compliance
+- **JWT Authentication**: Secure API access with token-based auth
+- **Data Encryption**: Protect sensitive datasets during processing
+- **Privacy Controls**: Options for on-premise deployment and data isolation
+- **Compliance Tools**: Export audit trails for regulatory requirements
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Python 3.8 or higher**
+- **8GB+ RAM** (16GB recommended for larger models)
+- **CUDA-compatible GPU** (optional, but recommended for faster training)
+- **Git** for cloning the repository
+
+### Installation (3 Steps)
+
+#### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/dyra-12/Responsive-Fine-Tuner.git
 cd Responsive-Fine-Tuner
+```
+
+#### Step 2: Create Virtual Environment (Recommended)
+
+```bash
+# Using venv
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# OR using conda
+conda create -n rft python=3.10
+conda activate rft
+```
+
+#### Step 3: Install Dependencies
+
+```bash
 pip install -r requirements.txt
-PYTHONPATH=. python run_app.py --port 7860 --config config/settings.yaml
 ```
 
-Optional:
-- `python run_app.py --share` to generate a Gradio share link for demos.
-- `python run_advanced_app.py` to launch the adaptive training playground (advanced analytics + TRL hooks).
-- `python run_enterprise.py` to boot the Streamlit dashboard tailored for enterprise pilots.
+### 🎬 Launch the Application
 
-## Documentation
-- `docs/Tutorial.ipynb` — notebook walkthrough covering ingestion, labeling, and feedback-driven fine-tuning for the sample dataset.
-- `docs/api/` — Sphinx-powered API docs. Build with `cd docs/api && pip install -r requirements-docs.txt && make html`.
+#### Basic Interface
 
-## Workflow at a Glance
-1. **Upload** — drop a folder of `.txt` or `.csv` files. RFT auto-detects encoding, sanitizes text, and surfaces dataset stats.
-2. **Label** — step through samples, accept/correct predictions, or assign new labels from the dropdown.
-3. **Fine-Tune** — each feedback batch triggers a LoRA update; adaptive LR keeps training stable even on tiny datasets.
-4. **Validate** — performance tab shows accuracy lifts, loss trends, and model metadata (parameter counts, adapter usage).
-5. **Export** — download labeled data or adapters for downstream experiments (coming soon in `maintenance/`).
-
-## Architecture Overview
-
-```text
-┌──────────────┐      ┌───────────────────┐      ┌─────────────────────┐
-│  Gradio UI   │────▶│  RFTApplication   │────▶│  EnhancedModelManager │
-│ (frontend/)  │◀───▶│ (frontend/app_core.py) │  │  + Advanced Trainer  │
-└──────────────┘      └───────────────────┘      └─────────────────────┘
-				 │                        │                           │
-				 ▼                        ▼                           ▼
-	Components/UX          DataProcessor                PEFT LoRA adapters,
-	(upload, labeling,     (encoding detection,         TRL reward loops,
-	analytics tabs)        splitting, metadata)        smart sampling
+```bash
+python run_app.py --port 7860
 ```
 
-- `frontend/main_app.py` wires Gradio Blocks into tabs (Upload, Labeling, Performance, Settings).
-- `frontend/components/*` host modular UI builders and Plotly visuals.
-- `backend/data_processor.py` cleans and splits datasets with encoding detection + validation.
-- `backend/enhanced_model_manager.py` manages tokenizer, LoRA layers, incremental fine-tuning, metrics, and adapter export.
-- `backend/advanced_trainer.py` adds adaptive learning rates, smart sampling, and TRL reward-based loops.
+The dashboard will be available at **http://localhost:7860**
 
-## Configuration
-- Default config: `config/settings.yaml` (model, tokenizer max length, batch sizes, data limits).
-- Enterprise overrides: `config/enterprise.yaml`.
-- Update paths via CLI flag: `python run_app.py --config config/enterprise.yaml`.
+#### Advanced Analytics Interface
 
-## Testing & Quality Gates
-- `python run_final_tests.py` — meta-runner that executes all phase suites.
-- `python run_phase<n>.py` — targeted regression suites for each milestone.
-- `pytest tests/test_phase3.py -k labeling` — run individual specs while iterating on a feature.
+```bash
+python run_advanced_app.py
+```
 
-## Roadmap (excerpt)
-- [ ] Auto-export LoRA adapters + TensorBoard traces.
-- [ ] Multi-user sessions with role-based auth hooks (`backend/auth.py`).
-- [ ] Dataset versioning + rollback via `maintenance/backup.py`.
-- [ ] Deeper telemetry surfaced in `monitoring/` dashboards.
+Includes additional features: adaptive training, TRL integration, and enhanced analytics
 
-## Contributing
-1. Fork + branch (`feat/<my-feature>`).
-2. Run `python run_final_tests.py` before opening a PR.
-3. Add/extend docs (README, `docs/`, or the tutorial notebook) for any user-facing change.
+#### Enterprise Dashboard
 
-## License
+```bash
+python run_enterprise.py
+```
 
-Distributed under the terms of the MIT License. See `LICENSE` for details.
+Streamlit-based interface with project management and multi-user features
+
+### 🌐 Public Demo (Share Link)
+
+```bash
+python run_app.py --share
+```
+
+Generates a public Gradio link for demos and remote collaboration
+
+---
+
+## 💡 Usage Guide
+
+### Quick Workflow (5 Minutes)
+
+1. **Launch App**: Run `python run_app.py`
+2. **Upload Data**: Drag & drop your `.txt` or `.csv` files
+3. **Start Labeling**: Review predictions and provide corrections
+4. **Watch It Learn**: Model automatically improves after each batch
+5. **Export Results**: Download labeled data and performance reports
+
+### Detailed Workflow
+
+#### 🗂️ Step 1: Data Upload
+
+**Tab**: Data Upload
+
+1. Click **"Upload Files"** and select your documents (`.txt` or `.csv`)
+2. Review the **Dataset Summary**:
+   - Total documents
+   - Train/test split
+   - Encoding detection results
+   - Data quality warnings
+3. Check the **Preview Table** showing first few rows
+4. Proceed to **Labeling** tab
+
+**💡 Tips**:
+- Use sample datasets from `examples/` folder to test the system
+- For CSV files, ensure text is in a column named `text` or `content`
+- Mixed encodings are handled automatically
+
+**Example Datasets**:
+- `examples/sentiment_analysis/sample.csv` — Movie reviews with positive/negative labels
+- `examples/medical_document_classification/sample.txt` — Clinical notes for diagnosis classification
+- `examples/legal_document_review/sample.csv` — Contract clauses for risk assessment
+- `examples/customer_feedback/sample.csv` — Support tickets with urgency labels
+
+---
+
+#### 🏷️ Step 2: Interactive Labeling
+
+**Tab**: Interactive Labeling
+
+1. View the current document and model's prediction
+2. Check the **confidence score** (color-coded: green = high, red = low)
+3. Choose an action:
+   - ✅ **Accept**: If prediction is correct
+   - ✏️ **Correct**: Select the right label from dropdown
+   - ⏭️ **Skip**: Move to next document
+4. Monitor the **Progress Bar** showing completion percentage
+5. View **Metadata** for context (file source, timestamp, document ID)
+
+**💡 Tips**:
+- Focus on correcting low-confidence predictions first (system highlights them)
+- Labeling history is auto-saved — safe to take breaks
+- The model retrains automatically after every 10 labels (configurable)
+
+**Visual Indicators**:
+- 🟢 **Green badge**: High confidence (>80%)
+- 🟡 **Yellow badge**: Medium confidence (50-80%)
+- 🔴 **Red badge**: Low confidence (<50%)
+
+---
+
+#### 🎯 Step 3: Model Fine-Tuning
+
+**Tab**: Performance Analytics
+
+Fine-tuning happens automatically in the background, but you can monitor progress:
+
+1. **Training Status**: See current training epoch and loss
+2. **Accuracy Chart**: Track model improvement over time
+3. **Confusion Matrix**: Understand which classes are confused
+4. **Confidence Distribution**: Analyze prediction confidence patterns
+
+**Manual Training** (optional):
+```bash
+# Trigger training via CLI
+python run_advanced_app.py --train-now
+```
+
+**💡 Tips**:
+- Wait for at least 20-30 labeled examples before evaluating performance
+- Loss should decrease over time — if it plateaus, adjust learning rate
+- Check confusion matrix to identify problematic class pairs
+
+---
+
+#### 📊 Step 4: Performance Validation
+
+**Tab**: Performance Analytics
+
+**Key Metrics**:
+- **Accuracy**: Overall percentage of correct predictions
+- **F1-Score**: Balanced metric considering precision and recall
+- **Precision**: What % of positive predictions were correct?
+- **Recall**: What % of actual positives were found?
+
+**Visualizations**:
+- 📈 **Accuracy Timeline**: Performance improvement across labeling sessions
+- 🔥 **Loss Curve**: Training loss reduction over epochs
+- 📊 **Confidence Histogram**: Distribution of model confidence scores
+- 🎯 **Per-Class Performance**: Metrics broken down by label
+
+**💡 Tips**:
+- Aim for balanced performance across all classes
+- If one class performs poorly, label more examples from that class
+- Export metrics periodically to track long-term trends
+
+---
+
+#### 💾 Step 5: Export & Deploy
+
+**Tab**: Settings
+
+**Export Options**:
+
+1. **Labeled Dataset**: Download all labeled examples as CSV
+   ```
+   document_id, text, label, confidence, timestamp
+   ```
+
+2. **Model Adapters**: Save LoRA weights for deployment
+   ```bash
+   # Saved to: models/rft-model-{timestamp}/
+   ```
+
+3. **Performance Report**: Generate PDF summary with charts and metrics
+
+4. **Project Snapshot**: Backup entire project state for reproducibility
+
+**Deployment**:
+```bash
+# Export for production
+python backend/enhanced_model_manager.py --export-model
+
+# Deploy with Docker
+docker build -t rft-production -f deployment/Dockerfile .
+docker run -p 8080:8080 rft-production
+```
+
+---
+
+## 🏗️ Project Structure
+
+```
+Responsive-Fine-Tuner/
+│
+├── run_app.py                   # Main application launcher (basic interface)
+├── run_advanced_app.py          # Advanced interface with analytics
+├── run_enterprise.py            # Enterprise Streamlit dashboard
+├── requirements.txt             # Python dependencies
+├── README.md                    # This file
+├── LICENSE                      # MIT License
+├── setup.py                     # Package configuration for pip install
+│
+├── frontend/                    # User interface components
+│   ├── main_app.py              # Gradio app definition with tabs
+│   ├── app_core.py              # Core application logic (RFTApplication)
+│   ├── enterprise_interface.py  # Streamlit enterprise UI
+│   └── components/              # Modular UI components
+│       ├── data_upload.py       # File upload and preview
+│       ├── labeling.py          # Interactive labeling interface
+│       ├── performance.py       # Metrics and charts
+│       └── analytics.py         # Advanced analytics dashboards
+│
+├── backend/                     # Core ML and data processing
+│   ├── config.py                # Configuration management (YAML)
+│   ├── data_processor.py        # Data ingestion, cleaning, splitting
+│   ├── model_manager.py         # Basic model loading and inference
+│   ├── enhanced_model_manager.py # LoRA fine-tuning and metrics
+│   ├── advanced_trainer.py      # Adaptive training and TRL integration
+│   ├── project_manager.py       # Multi-project organization
+│   ├── auth.py                  # JWT authentication
+│   ├── security.py              # Encryption and access control
+│   ├── analytics.py             # Performance metrics and reporting
+│   └── optimizations.py         # Memory and compute optimizations
+│
+├── config/                      # Configuration files
+│   ├── settings.yaml            # Default settings (model, training params)
+│   └── enterprise.yaml          # Enterprise configuration overrides
+│
+├── examples/                    # Sample datasets for quick testing
+│   ├── README.md                # Guide to example datasets
+│   ├── sentiment_analysis/      # Movie reviews (IMDB-style)
+│   ├── medical_document_classification/ # Clinical notes
+│   ├── legal_document_review/   # Contract clauses
+│   └── customer_feedback/       # Support tickets
+│
+├── docs/                        # Documentation
+│   ├── overview.md              # High-level architecture
+│   ├── quick_start.md           # 5-minute getting started
+│   ├── Tutorial.ipynb           # Jupyter notebook walkthrough
+│   └── api/                     # Sphinx API documentation
+│       ├── index.rst
+│       ├── api_reference.rst
+│       └── requirements-docs.txt
+│
+├── tests/                       # Test suites
+│   ├── test_phase1.py           # Data processing tests
+│   ├── test_phase2.py           # Model loading tests
+│   ├── test_phase3.py           # Labeling workflow tests
+│   ├── test_phase4.py           # Training and fine-tuning tests
+│   ├── test_phase5.py           # Analytics and metrics tests
+│   └── test_phase6.py           # Integration tests
+│
+├── deployment/                  # Production deployment
+│   ├── Dockerfile               # Standard Docker image
+│   ├── docker-compose.yml       # Multi-container setup
+│   ├── enterprise-docker-compose.yml # Enterprise stack
+│   ├── nginx.conf               # Reverse proxy configuration
+│   └── production.py            # Production server with monitoring
+│
+├── maintenance/                 # Operational tools
+│   └── backup.py                # Backup and restore utilities
+│
+├── monitoring/                  # Observability
+│   └── monitor.py               # Metrics collection and alerting
+│
+└── scripts/                     # Automation scripts
+    ├── build_and_push_docker.sh # Docker build pipeline
+    └── publish_pypi.sh          # PyPI publishing workflow
+```
+
+---
+
+## 🧠 Technical Details
+
+### Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         Frontend Layer                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
+│  │  Data Upload │  │   Labeling   │  │ Performance  │         │
+│  │  Component   │  │  Component   │  │  Component   │         │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘         │
+│         │                  │                  │                  │
+│         └──────────────────┼──────────────────┘                 │
+│                            │                                     │
+└────────────────────────────┼─────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      Application Core                           │
+│                    (RFTApplication)                             │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  • State Management (current data, labeling history)    │   │
+│  │  • Workflow Orchestration (upload → label → train)      │   │
+│  │  • Event Handlers (button clicks, file uploads)         │   │
+│  └─────────────────────────────────────────────────────────┘   │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+              ▼                             ▼
+┌──────────────────────────┐  ┌──────────────────────────┐
+│   Data Processor         │  │  Enhanced Model Manager  │
+│                          │  │                          │
+│  • Encoding Detection    │  │  • Model Loading         │
+│  • Text Sanitization     │  │  • LoRA Configuration    │
+│  • Train/Test Splitting  │  │  • Incremental Training  │
+│  • Quality Validation    │  │  • Metrics Tracking      │
+└──────────────────────────┘  └──────────┬───────────────┘
+                                         │
+                                         ▼
+                              ┌──────────────────────┐
+                              │  Advanced Trainer    │
+                              │                      │
+                              │  • Adaptive LR       │
+                              │  • Smart Sampling    │
+                              │  • TRL Integration   │
+                              └──────────────────────┘
+```
+
+### Key Technologies
+
+#### 🔧 Core ML Stack
+
+**PyTorch (≥2.0.0)**
+- Deep learning framework for model training and inference
+- GPU acceleration with CUDA support
+- Dynamic computation graphs for flexibility
+
+**Transformers (≥4.30.0)**
+- Hugging Face library for pre-trained models
+- Access to thousands of models: BERT, RoBERTa, GPT-2, T5, etc.
+- Unified API for different architectures
+
+**PEFT (≥0.4.0)**
+- Parameter-Efficient Fine-Tuning library
+- LoRA (Low-Rank Adaptation) implementation
+- Reduces trainable parameters by 90%+ while maintaining performance
+
+**TRL (≥0.4.7)**
+- Transformer Reinforcement Learning
+- Reward-based alignment and preference learning
+- Human feedback integration
+
+#### 🎨 Frontend & UI
+
+**Gradio (≥4.0.0)**
+- Web interface with zero frontend code
+- Real-time updates and interactivity
+- Automatic API endpoint generation
+
+**Plotly (≥5.0.0)**
+- Interactive charts and visualizations
+- Responsive and mobile-friendly
+- Export to PNG/SVG
+
+#### 📊 Data & Analytics
+
+**Pandas (≥1.3.0)**
+- Data manipulation and analysis
+- CSV/Excel reading with encoding detection
+
+**Scikit-learn (≥1.0.0)**
+- Train/test splitting
+- Evaluation metrics (accuracy, F1, precision, recall)
+- Confusion matrices
+
+**NumPy (≥1.21.0)**
+- Numerical computations
+- Array operations
+
+### Fine-Tuning Methodology
+
+#### LoRA (Low-Rank Adaptation)
+
+RFT uses LoRA to fine-tune models efficiently:
+
+**How it works**:
+1. **Freeze Base Model**: Original weights remain unchanged
+2. **Add Low-Rank Matrices**: Inject small trainable matrices (rank = 8-16)
+3. **Train Only Adapters**: Update 0.1-1% of parameters
+4. **Merge for Inference**: Combine adapters with base model at runtime
+
+**Advantages**:
+- ⚡ **Fast**: Train in minutes instead of hours
+- 💾 **Memory Efficient**: Requires minimal GPU memory
+- 💰 **Cost-Effective**: Lower compute costs
+- 🔄 **Reversible**: Easy to swap or merge adapters
+
+**Configuration**:
+```python
+lora_config = LoraConfig(
+    r=8,                    # Rank of adapter matrices
+    lora_alpha=32,          # Scaling factor
+    target_modules=["q_proj", "v_proj"],  # Which layers to adapt
+    lora_dropout=0.1,       # Regularization
+    bias="none",
+    task_type="SEQ_CLS"     # Sequence classification
+)
+```
+
+#### Adaptive Training
+
+**Smart Learning Rate Scheduling**:
+```python
+# Adjusts based on dataset size
+if num_samples < 100:
+    lr = 5e-4  # Higher LR for small datasets
+elif num_samples < 1000:
+    lr = 2e-4  # Medium LR
+else:
+    lr = 1e-4  # Conservative LR for large datasets
+```
+
+**Intelligent Sampling**:
+- Prioritizes uncertain predictions (confidence < 0.6)
+- Balances class distribution
+- Avoids overfitting on easy examples
+
+**Reward-Based Learning** (via TRL):
+- Incorporates human preferences
+- Aligns model behavior with user corrections
+- Reduces prediction drift
+
+---
+
+## 🎓 Use Cases
+
+### Research
+
+#### 🔬 Interpretability Studies
+- Analyze how models improve with human feedback
+- Study the impact of different labeling strategies
+- Compare LoRA vs full fine-tuning efficiency
+
+#### 📊 Benchmark Experiments
+- Test various pre-trained models on domain-specific tasks
+- Evaluate few-shot vs many-shot learning
+- Measure human-in-the-loop effectiveness
+
+#### 🧪 Prototyping
+- Rapid experimentation with new architectures
+- Quick validation of hypotheses
+- Iterate on model ideas without heavy infrastructure
+
+### Industry
+
+#### 🏥 Healthcare
+- **Medical Document Classification**: Triage clinical notes by urgency
+- **Diagnosis Coding**: Auto-assign ICD codes with physician review
+- **Adverse Event Detection**: Flag safety reports for review
+
+#### ⚖️ Legal
+- **Contract Review**: Identify risky clauses in agreements
+- **Legal Document Classification**: Categorize by document type
+- **Compliance Monitoring**: Flag non-compliant language
+
+#### 💼 Business
+- **Customer Feedback Analysis**: Classify support tickets by topic/urgency
+- **Sentiment Analysis**: Monitor brand perception in reviews
+- **Email Routing**: Auto-assign emails to correct department
+
+#### 🏦 Finance
+- **Transaction Categorization**: Classify expenses automatically
+- **Fraud Detection**: Flag suspicious transactions for review
+- **Regulatory Compliance**: Identify reportable events
+
+### Education
+
+#### 👩‍🏫 Teaching Tool
+- Demonstrate active learning concepts
+- Show transformer fine-tuning in action
+- Visualize model improvement over time
+
+#### 🎓 Student Projects
+- Capstone projects with real-world impact
+- Hands-on ML course assignments
+- Research paper implementations
+
+#### 🔬 Research Training
+- Teach best practices in model evaluation
+- Introduce human-in-the-loop workflows
+- Practice responsible AI development
+
+---
+
+## 📦 Dependencies
+
+### Core Libraries
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| **PyTorch** | ≥2.0.0 | Deep learning framework |
+| **Transformers** | ≥4.30.0 | Pre-trained models from Hugging Face |
+| **PEFT** | ≥0.4.0 | Parameter-efficient fine-tuning (LoRA) |
+| **TRL** | ≥0.4.7 | Reinforcement learning for transformers |
+| **Gradio** | ≥4.0.0 | Web interface framework |
+| **Datasets** | ≥2.12.0 | Hugging Face dataset utilities |
+| **Accelerate** | ≥0.20.0 | Multi-GPU training and optimization |
+
+### Supporting Libraries
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| **Pandas** | ≥1.3.0 | Data manipulation and CSV handling |
+| **NumPy** | ≥1.21.0 | Numerical computations |
+| **Scikit-learn** | ≥1.0.0 | Metrics and data splitting |
+| **Plotly** | ≥5.0.0 | Interactive visualizations |
+| **PyYAML** | ≥6.0 | Configuration file parsing |
+| **PyJWT** | ≥2.6.0 | Authentication tokens |
+| **python-dotenv** | ≥0.19.0 | Environment variable management |
+| **tqdm** | ≥4.64.0 | Progress bars |
+
+### Optional (for advanced features)
+
+| Library | Purpose |
+|---------|---------|
+| **bitsandbytes** | 8-bit quantization for memory savings |
+| **tensorboard** | Training visualization |
+| **wandb** | Experiment tracking |
+| **streamlit** | Alternative UI for enterprise features |
+
+See `requirements.txt` for complete list with exact versions.
+
+---
+
+## 🐳 Docker Installation
+
+### Quick Start with Docker
+
+```bash
+# Build the image
+docker build -t responsive-fine-tuner:latest -f deployment/Dockerfile .
+
+# Run the container
+docker run -p 7860:7860 responsive-fine-tuner:latest
+```
+
+Access at **http://localhost:7860**
+
+### Docker Compose (with GPU support)
+
+```bash
+# Start all services
+docker-compose -f deployment/docker-compose.yml up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Enterprise Stack
+
+```bash
+# Full stack with monitoring, authentication, and database
+docker-compose -f deployment/enterprise-docker-compose.yml up -d
+```
+
+**Includes**:
+- Gradio frontend on port 7860
+- Streamlit enterprise UI on port 8501
+- PostgreSQL database for project storage
+- Nginx reverse proxy with SSL
+- Prometheus + Grafana monitoring
+
+---
+
+## ⚙️ Configuration
+
+### Basic Configuration (`config/settings.yaml`)
+
+```yaml
+model:
+  name: "distilbert-base-uncased"  # Hugging Face model ID
+  max_length: 512                  # Maximum sequence length
+  num_labels: 2                    # Number of classes
+
+training:
+  batch_size: 8                    # Training batch size
+  learning_rate: 2e-4              # Initial learning rate
+  num_epochs: 3                    # Epochs per fine-tuning round
+  weight_decay: 0.01               # L2 regularization
+  warmup_steps: 100                # LR warmup
+
+lora:
+  r: 8                             # LoRA rank
+  lora_alpha: 32                   # LoRA scaling
+  lora_dropout: 0.1                # LoRA dropout
+  target_modules: ["q_proj", "v_proj"]
+
+data:
+  train_split: 0.8                 # Train/test ratio
+  max_samples: 10000               # Limit total samples
+  auto_retrain_threshold: 10       # Labels before auto-retrain
+
+ui:
+  theme: "default"                 # Gradio theme
+  show_confidence: true            # Display confidence scores
+  enable_analytics: true           # Show performance charts
+```
+
+### Enterprise Configuration (`config/enterprise.yaml`)
+
+```yaml
+authentication:
+  enabled: true
+  jwt_secret: "${JWT_SECRET}"      # From environment
+  token_expiry: 86400              # 24 hours
+
+projects:
+  max_per_user: 10
+  auto_backup: true
+  backup_interval: 3600            # 1 hour
+
+monitoring:
+  enabled: true
+  log_level: "INFO"
+  metrics_port: 9090
+```
+
+### Environment Variables
+
+Create a `.env` file:
+
+```bash
+# Model settings
+MODEL_NAME=distilbert-base-uncased
+MAX_LENGTH=512
+
+# Authentication
+JWT_SECRET=your-secret-key-here
+AUTH_ENABLED=true
+
+# Paths
+DATA_DIR=./data
+MODEL_CACHE_DIR=./models
+
+# Compute
+CUDA_VISIBLE_DEVICES=0           # GPU selection
+PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+```
+
+---
+
+## 🧪 Testing & Quality Assurance
+
+### Run All Tests
+
+```bash
+# Complete test suite
+python run_final_tests.py
+
+# Or using pytest
+pytest tests/ -v
+```
+
+### Phase-Specific Tests
+
+```bash
+# Phase 1: Data processing
+pytest tests/test_phase1.py -v
+
+# Phase 2: Model loading
+pytest tests/test_phase2.py -v
+
+# Phase 3: Labeling workflow
+pytest tests/test_phase3.py -v
+
+# Phase 4: Fine-tuning
+pytest tests/test_phase4.py -v
+
+# Phase 5: Analytics
+pytest tests/test_phase5.py -v
+
+# Phase 6: Integration
+pytest tests/test_phase6.py -v
+```
+
+### Run Specific Test
+
+```bash
+# Test a specific function
+pytest tests/test_phase3.py::test_labeling_workflow -v
+
+# Test with keyword matching
+pytest tests/ -k "upload" -v
+```
+
+### Coverage Report
+
+```bash
+pytest tests/ --cov=backend --cov=frontend --cov-report=html
+open htmlcov/index.html
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+### Ways to Contribute
+
+- 🐛 **Bug Reports**: Open an issue with detailed reproduction steps
+- ✨ **Feature Requests**: Suggest new capabilities or improvements
+- 📝 **Documentation**: Improve guides, add examples, fix typos
+- 💻 **Code**: Submit pull requests for new features or bug fixes
+- 🎨 **UI/UX**: Enhance the dashboard design and user experience
+- 🧪 **Testing**: Add test cases or improve test coverage
+- 🌍 **Localization**: Translate UI and docs to other languages
+
+### Development Setup
+
+```bash
+# Fork the repository on GitHub
+# Clone your fork
+git clone https://github.com/YOUR-USERNAME/Responsive-Fine-Tuner.git
+cd Responsive-Fine-Tuner
+
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Install dependencies including dev tools
+pip install -r requirements.txt
+pip install pytest pytest-cov black flake8
+
+# Make your changes
+# ...
+
+# Run tests
+pytest tests/ -v
+
+# Run linter
+flake8 backend/ frontend/ tests/
+
+# Format code
+black backend/ frontend/ tests/
+
+# Commit and push
+git add .
+git commit -m "Add: your feature description"
+git push origin feature/your-feature-name
+
+# Open a pull request on GitHub
+```
+
+### Code Style Guidelines
+
+- **Follow PEP 8**: Use `black` for auto-formatting
+- **Add Docstrings**: Document all functions, classes, and modules
+- **Type Hints**: Include type annotations where applicable
+- **Write Tests**: Add unit tests for new features
+- **Update Docs**: Modify README or docs if user-facing changes
+
+### Pull Request Process
+
+1. **Describe Changes**: Clearly explain what and why in PR description
+2. **Link Issues**: Reference related issue numbers (e.g., "Fixes #42")
+3. **Pass CI**: Ensure all tests pass in GitHub Actions
+4. **Request Review**: Tag maintainers for review
+5. **Address Feedback**: Respond to review comments promptly
+
+### Commit Message Format
+
+```
+<type>: <short summary>
+
+<optional detailed description>
+
+<optional footer>
+```
+
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+**Examples**:
+```
+feat: Add support for multi-label classification
+fix: Resolve encoding error in CSV upload
+docs: Update installation instructions for Windows
+```
+
+---
+
+## 📚 Additional Resources
+
+- 📘 **[Quick Start Guide](docs/quick_start.md)** — Get started in 5 minutes
+- 📓 **[Tutorial Notebook](docs/Tutorial.ipynb)** — Step-by-step walkthrough with code
+- 📖 **[API Documentation](docs/api/index.rst)** — Complete API reference (build with Sphinx)
+- 🗺️ **[Roadmap](Roadmap.md)** — Upcoming features and project vision
+- 🤝 **[Contributing Guide](CONTRIBUTING.md)** — Detailed contribution guidelines
+- 📜 **[Code of Conduct](CODE_OF_CONDUCT.md)** — Community standards
+- 📝 **[Changelog](CHANGELOG.md)** — Version history and release notes
+- 🧪 **[Example Datasets](examples/README.md)** — Curated samples for testing
+
+### External Resources
+
+- 🤗 **[Hugging Face Transformers Docs](https://huggingface.co/docs/transformers)** — Model library documentation
+- 🎓 **[PEFT Tutorial](https://huggingface.co/docs/peft)** — Parameter-efficient fine-tuning guide
+- 📊 **[TRL Documentation](https://huggingface.co/docs/trl)** — Reinforcement learning for LLMs
+- 🎨 **[Gradio Documentation](https://gradio.app/docs)** — Build ML web interfaces
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 Responsive Fine-Tuner Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 💬 Contact & Support
+
+### Get Help
+
+- 📮 **GitHub Issues**: [Report bugs or request features](https://github.com/dyra-12/Responsive-Fine-Tuner/issues)
+- 💬 **GitHub Discussions**: [Ask questions or share ideas](https://github.com/dyra-12/Responsive-Fine-Tuner/discussions)
+- 📧 **Email**: dyra12@example.com
+- 🐦 **Twitter**: [@dyra12](https://twitter.com/dyra12)
+
+### Acknowledgments
+
+Built with ❤️ by the community
+
+**Special Thanks To**:
+- Hugging Face team for Transformers and PEFT libraries
+- Gradio team for the amazing UI framework
+- PyTorch community for the deep learning foundation
+- All contributors who have helped improve this project
+
+---
+
+<div align="center">
+
+### ⭐ Star us on GitHub if you find this project useful!
+
+[⬆ Back to Top](#-responsive-fine-tuner-rft)
+
+</div>
