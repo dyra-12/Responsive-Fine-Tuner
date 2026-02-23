@@ -45,6 +45,65 @@ class DataProcessor:
         self.config = config
         self.supported_formats = config.data.supported_formats
         self.max_file_size = config.data.max_file_size_mb * 1024 * 1024  # Convert to bytes
+        # Used when CSVs contain non-numeric labels (e.g. Positive/Negative).
+        # Mapping is per-DataProcessor instance to keep behavior deterministic within a run.
+        self._string_label_to_id: Dict[str, int] = {}
+
+    def _coerce_label_to_int(self, raw_label) -> Optional[int]:
+        """Convert a CSV label value to an int class id.
+
+        Supports:
+        - ints / integer-like floats
+        - numeric strings ("0", "1")
+        - strings like "Class 1"
+        - categorical strings ("Positive"/"Negative") mapped in encounter order
+        """
+        if raw_label is None or (isinstance(raw_label, float) and np.isnan(raw_label)):
+            return None
+
+        # Already numeric
+        if isinstance(raw_label, (int, np.integer)):
+            return int(raw_label)
+        if isinstance(raw_label, (float, np.floating)):
+            # tolerate 0.0/1.0 etc
+            if float(raw_label).is_integer():
+                return int(raw_label)
+            return None
+
+        # Strings
+        try:
+            label_str = str(raw_label).strip()
+        except Exception:
+            return None
+
+        if label_str == "":
+            return None
+
+        # "Class X"
+        if label_str.lower().startswith("class "):
+            tail = label_str.split(" ", 1)[1].strip()
+            if tail.isdigit() or (tail.startswith("-") and tail[1:].isdigit()):
+                return int(tail)
+
+        # Numeric string
+        if label_str.isdigit() or (label_str.startswith("-") and label_str[1:].isdigit()):
+            return int(label_str)
+
+        # Categorical string -> map
+        if label_str not in self._string_label_to_id:
+            next_id = len(self._string_label_to_id)
+            self._string_label_to_id[label_str] = next_id
+
+        label_id = self._string_label_to_id[label_str]
+        # Ensure we don't exceed configured num_labels; fall back to 0 to avoid crashes.
+        if hasattr(self.config, 'model') and getattr(self.config.model, 'num_labels', None) is not None:
+            if label_id >= int(self.config.model.num_labels):
+                logger.warning(
+                    f"Label '{label_str}' mapped to id {label_id} which exceeds num_labels={self.config.model.num_labels}. "
+                    "Falling back to 0. Consider increasing `model.num_labels` in config."
+                )
+                return 0
+        return int(label_id)
         
     def validate_file(self, file_path: str) -> bool:
         """Validate file format and size"""
@@ -119,7 +178,11 @@ class DataProcessor:
             return []
     
     def process_csv_file(self, file_path: str) -> List[Dict[str, Any]]:
-        """Process .csv file with text data"""
+        """Process .csv file with text data.
+
+        If a label-like column exists, the raw label is preserved in metadata and a
+        coerced integer label is stored under `label`.
+        """
         try:
             encoding = self.detect_encoding(file_path)
             documents = []
@@ -128,6 +191,14 @@ class DataProcessor:
             possible_text_columns = ['text', 'content', 'document', 'sentence', 'review', 'comment']
             
             df = pd.read_csv(file_path, encoding=encoding)
+
+            # Detect an optional label column
+            possible_label_columns = ['label', 'labels', 'class', 'target', 'y']
+            label_column = None
+            for col in possible_label_columns:
+                if col in df.columns:
+                    label_column = col
+                    break
             
             # Find text column
             text_column = None
@@ -150,13 +221,17 @@ class DataProcessor:
             for idx, row in df.iterrows():
                 text = str(row[text_column]).strip()
                 if len(text) > 10:  # Minimum length
+                    raw_label = row[label_column] if label_column is not None else None
+                    coerced_label = self._coerce_label_to_int(raw_label) if label_column is not None else None
                     documents.append({
                         'text': text,
                         'source_file': file_path,
                         'document_id': f"{Path(file_path).stem}_row_{idx}",
                         'length': len(text),
                         'words': len(text.split()),
-                        'row_data': row.to_dict()
+                        'row_data': row.to_dict(),
+                        'label_raw': None if label_column is None else raw_label,
+                        'label': coerced_label
                     })
             
             logger.info(f"Processed {len(documents)} documents from {file_path}")
@@ -166,8 +241,15 @@ class DataProcessor:
             logger.error(f"Failed to process CSV file {file_path}: {e}")
             return []
     
-    def process_uploaded_files(self, file_paths: List[str]) -> ProcessedData:
-        """Main method to process all uploaded files"""
+    def process_uploaded_files(self, file_paths: List[str], use_labels: bool = False) -> ProcessedData:
+        """Main method to process all uploaded files.
+
+        By default, uploaded datasets are treated as *unlabeled* (labels set to 0)
+        to support interactive labeling.
+
+        Set `use_labels=True` to populate `ProcessedData.labels` from CSV label
+        columns (useful for gold/holdout evaluation sets).
+        """
         all_documents = []
         
         for file_path in file_paths:
@@ -188,7 +270,10 @@ class DataProcessor:
         
         # Create processed data object
         texts = [doc['text'] for doc in all_documents]
-        labels = [0] * len(all_documents)  # Default labels (will be updated by user)
+        if use_labels:
+            labels = [int(doc.get('label', 0) or 0) for doc in all_documents]
+        else:
+            labels = [0] * len(all_documents)  # Default labels (will be updated by user)
         metadata = all_documents
         
         processed_data = ProcessedData(

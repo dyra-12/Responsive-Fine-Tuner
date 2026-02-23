@@ -14,6 +14,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from backend.config import ConfigManager
 from backend.data_processor import DataProcessor, ProcessedData
 from backend.enhanced_model_manager import EnhancedModelManager
+from backend.experiment_tracker import StabilityPlasticityTracker
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -34,6 +35,26 @@ class RFTApplication:
         self.labeling_history = []
         self.performance_history = []
         self.available_labels = ["Class 0", "Class 1"]  # Default binary labels
+
+        # Stability–Plasticity experiment logging
+        self._experiment_cycle = 0
+        self._gold_data_cache: Optional[ProcessedData] = None
+        experiment_dir = os.environ.get(
+            "RFT_EXPERIMENT_DIR",
+            os.path.join("data", "experiments", "stability_plasticity"),
+        )
+        self.gold_set_path = os.environ.get(
+            "RFT_GOLD_SET_PATH",
+            os.path.join(experiment_dir, "gold.csv"),
+        )
+        self.results_csv_path = os.environ.get(
+            "RFT_RESULTS_CSV_PATH",
+            os.path.join(experiment_dir, "results.csv"),
+        )
+        self.sp_tracker = StabilityPlasticityTracker(
+            gold_set_path=self.gold_set_path,
+            results_csv_path=self.results_csv_path,
+        )
         
         # UI components (will be initialized in setup_interface)
         self.components = {}
@@ -47,7 +68,8 @@ class RFTApplication:
                 return {"status": "error", "message": "No files provided"}
             
             # Process files
-            self.current_data = self.data_processor.process_uploaded_files(files)
+            # Keep uploaded data *unlabeled* for interactive labeling.
+            self.current_data = self.data_processor.process_uploaded_files(files, use_labels=False)
             
             # Split into train/test
             self.train_data, self.test_data = self.data_processor.split_data(self.current_data)
@@ -75,6 +97,18 @@ class RFTApplication:
         except Exception as e:
             logger.error(f"File processing failed: {e}")
             return {"status": "error", "message": f"Processing failed: {str(e)}"}
+
+    def _get_gold_data(self) -> Optional[ProcessedData]:
+        """Load and cache the gold set used for stability evaluation."""
+        if self._gold_data_cache is not None:
+            return self._gold_data_cache
+
+        gold_data = self.sp_tracker.load_gold_set(self.data_processor)
+        if gold_data and gold_data.texts and gold_data.labels:
+            self._gold_data_cache = gold_data
+        else:
+            self._gold_data_cache = None
+        return self._gold_data_cache
     
     def get_next_document(self) -> Tuple[Optional[str], Dict[str, Any]]:
         """Get the next document for labeling"""
@@ -156,7 +190,10 @@ class RFTApplication:
             
             retrain_result = None
             if should_retrain:
-                retrain_result = self.model_manager.incremental_fine_tune(self.model_manager.feedback_data)
+                # Snapshot this batch for plasticity evaluation (and for logging)
+                feedback_batch = list(self.model_manager.feedback_data)
+
+                retrain_result = self.model_manager.incremental_fine_tune(feedback_batch)
                 
                 # Update performance metrics
                 if retrain_result.get("status") == "success" and self.test_data:
@@ -167,6 +204,36 @@ class RFTApplication:
                         "timestamp": datetime.now().isoformat(),
                         "training_loss": retrain_result.get("loss", 0)
                     })
+
+                # Stability–Plasticity experiment logging (gold hold-out vs. just-labeled batch)
+                if retrain_result.get("status") == "success":
+                    self._experiment_cycle += 1
+
+                    stability_accuracy = None
+                    gold_data = self._get_gold_data()
+                    if gold_data is not None and gold_data.texts:
+                        stability_eval = self.model_manager.evaluate_model(gold_data)
+                        stability_accuracy = stability_eval.get("accuracy")
+
+                    plasticity_accuracy = None
+                    if feedback_batch:
+                        plasticity_data = ProcessedData(
+                            texts=[fb.get("text", "") for fb in feedback_batch],
+                            labels=[int(fb.get("user_label", 0)) for fb in feedback_batch],
+                            metadata=feedback_batch,
+                            file_sources=["feedback_batch"],
+                        )
+                        plasticity_eval = self.model_manager.evaluate_model(plasticity_data)
+                        plasticity_accuracy = plasticity_eval.get("accuracy")
+
+                    sp_result = self.sp_tracker.make_result(
+                        cycle=self._experiment_cycle,
+                        feedback_samples=len(feedback_batch),
+                        stability_accuracy=stability_accuracy,
+                        plasticity_accuracy=plasticity_accuracy,
+                        config=self.config,
+                    )
+                    self.sp_tracker.append_result(sp_result)
             
             response = {
                 "status": "success",
@@ -210,7 +277,8 @@ class RFTApplication:
                 "total_count": total_count,
                 "feedback_count": len(self.model_manager.feedback_data),
                 "training_sessions": len(self.model_manager.training_history),
-                "performance_history": self.performance_history
+                "performance_history": self.performance_history,
+                "stability_plasticity": self.sp_tracker.summarize_latest()
             }
             
             return metrics

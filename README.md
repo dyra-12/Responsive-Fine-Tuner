@@ -22,6 +22,12 @@
 
 **Responsive Fine-Tuner (RFT)** is an interactive platform that enables domain experts to fine-tune language models through natural feedback loops. Upload your data, label examples interactively, and watch the model improve in real-time — all through an intuitive web interface.
 
+### 🤖 Portfolio Snapshot
+
+- **Core**: Interactive human-in-the-loop (HITL) pipeline for steering Small Language Models (SLMs) via **incremental LoRA** (parameter-efficient fine-tuning).
+- **Technical contribution**: A Gradio-based interface that captures real-time user corrections and triggers lightweight updates, minimizing the compute overhead of “online” adaptation.
+- **Research focus**: Measuring the **dynamics of adaptation** — how feedback frequency and update strength impact model calibration and catastrophic forgetting (the stability–plasticity dilemma).
+
 ### 🎯 Purpose & Scope
 
 This toolkit bridges the gap between domain expertise and machine learning, designed to help you:
@@ -99,6 +105,89 @@ We encourage researchers and practitioners to use this toolkit as a foundation f
 - **Confidence Calibration**: Analyze model confidence vs. actual accuracy
 - **Before/After Comparison**: See performance deltas highlighting improvement areas
 - **Export Reports**: Download performance summaries and labeled datasets
+
+#### ⚖️ Stability–Plasticity Experiment (Built-In Logger)
+
+RFT can automatically log a lightweight **stability–plasticity** experiment while you use the Gradio app.
+
+- **Stability (hold-out)**: accuracy on a fixed labeled gold set
+- **Plasticity (new feedback)**: accuracy on the newly-labeled feedback batch for that cycle
+
+**Files (defaults):**
+
+- Gold set: `data/experiments/stability_plasticity/gold.csv`
+- Results CSV: `data/experiments/stability_plasticity/results.csv`
+
+**How to run (manual, 3–5 cycles):**
+
+1. Start the app: `python run_app.py`
+2. Upload any dataset (unlabeled is fine)
+3. Label until the model retrains (triggered when feedback count reaches the configured batch size)
+4. Repeat 3–5 times — after each retrain, RFT appends one row to `results.csv`
+
+**Generate a README-ready table (+ optional plot):**
+
+```bash
+python scripts/stability_plasticity_report.py \
+  --results data/experiments/stability_plasticity/results.csv \
+  --out-html data/experiments/stability_plasticity/plot.html
+```
+
+Then paste the printed Markdown table into your README (and optionally link `plot.html`).
+
+**README-ready results block (paste after you run 3–5 cycles):**
+
+- Table: run the script and paste the Markdown output here.
+- Graph: generate `plot.html` and link it (or export a PNG screenshot).
+
+```markdown
+### Stability–Plasticity Results
+
+| cycle | feedback_samples | stability_accuracy | plasticity_accuracy | learning_rate | timestamp |
+|------:|-----------------:|-------------------:|--------------------:|--------------:|----------|
+| 1 | 4 |  |  | 1e-4 |  |
+| 2 | 4 |  |  | 1e-4 |  |
+| 3 | 4 |  |  | 1e-4 |  |
+
+**Plot:** see `data/experiments/stability_plasticity/plot.html`
+```
+
+**Notebook option:** you can also generate the same table/plot via [docs/stability_plasticity_report.ipynb](docs/stability_plasticity_report.ipynb).
+
+**Optional configuration:**
+
+- Set `RFT_GOLD_SET_PATH` to point at your own labeled hold-out set.
+- Set `RFT_RESULTS_CSV_PATH` to change where results are written.
+
+#### 🧪 Research Notes (Stability vs. Plasticity)
+
+After you run **3–5 feedback cycles**, add a short write-up here (even 5–8 lines is enough). The goal is to document a real observation about the trade-off between fast adaptation and retention.
+
+**What to capture (minimum viable “research artifact”):**
+
+- A small table or plot generated from `data/experiments/stability_plasticity/results.csv`
+- 1–2 screenshots of the Gradio labeling flow (before/after a cycle)
+- A short paragraph interpreting the trend
+
+**Write-up template (fill in with your numbers):**
+
+> Over **N cycles**, plasticity (new feedback accuracy) improved from **A → B** ($+\Delta$), while stability (gold set accuracy) changed from **C → D** ($\Delta$). In our runs, increasing update strength (e.g., learning rate / batch size) led to **faster adaptation** but **more forgetting** on the gold set, suggesting a clear stability–plasticity trade-off.
+
+#### 🛑 Decision Matrix / When to Stop
+
+- **Stop coding when**: the Gradio demo works end-to-end, `results.csv` has **3–5 rows** (cycles), and you have **1–2 screenshots** showing the loop.
+- **Stop writing when**: you have a **single paragraph** summarizing the stability–plasticity trend (even if the trend is modest or mixed).
+- **If stability collapses**: reduce `training.learning_rate`, increase the gold set size, or retrain less frequently (larger feedback batches).
+- **If plasticity is too slow**: increase feedback batch size slightly, use a slightly higher learning rate, or focus labeling on high-uncertainty samples.
+
+#### 🖼️ Demo Artifacts (Screenshots / GIF)
+
+For a portfolio-ready demo, capture evidence of improvement over **3 feedback cycles**:
+
+- **Screenshots (minimum)**: take 1 screenshot before cycle 1 and 1 screenshot after cycle 3 (same tab, showing prediction + confidence).
+- **GIF (optional)**: screen-record the labeling tab for ~30–60 seconds and convert to GIF using your OS screen recorder (or `ffmpeg` if available).
+
+This is intentionally lightweight — the goal is to document the interactive loop, not to build a production-grade MLOps pipeline.
 
 ### 🎨 Advanced Features
 
@@ -204,6 +293,17 @@ Generates a public Gradio link for demos and remote collaboration
 3. **Start Labeling**: Review predictions and provide corrections
 4. **Watch It Learn**: Model automatically improves after each batch
 5. **Export Results**: Download labeled data and performance reports
+
+### How the Gradio Feedback Loop Works (Technical)
+
+RFT’s interaction loop is intentionally simple so you can demonstrate “learning from feedback” without heavy infrastructure:
+
+1. **Upload & split**: files are processed and split into train/test.
+2. **Predict**: the model predicts a label + confidence for the current item.
+3. **Feedback**: you mark the prediction correct/incorrect and supply the correct label when needed.
+4. **Buffer**: feedback is stored as a small batch of (text, user_label, prediction).
+5. **Incremental update**: when the buffer reaches `training.batch_size`, RFT runs a quick **incremental fine-tune step** using **LoRA** adapters.
+6. **Evaluate & log**: after each update, RFT logs stability (gold set) vs plasticity (new batch) to `data/experiments/stability_plasticity/results.csv`.
 
 ### Detailed Workflow
 
@@ -933,6 +1033,16 @@ docs: Update installation instructions for Windows
 ```
 
 ---
+
+## 🔭 Future Work / Research Directions
+
+This project currently focuses on **incremental supervised fine-tuning via LoRA** (parameter-efficient updates from human corrections). A natural next step is to transition from “correct label” supervision to **preference-based learning** that better captures nuanced human feedback.
+
+- **Preference aggregation**: collect pairwise preferences (A vs. B) and explore aggregation strategies (majority vote, confidence-weighted votes, disagreement tracking).
+- **Reward modeling**: train a reward model on expert preferences to predict which outputs are preferred (and under what conditions).
+- **Preference-based optimization (TRL)**: investigate using TRL to optimize the base model against the learned reward signal, enabling richer feedback loops than label-only updates.
+
+This framing positions incremental LoRA as the practical precursor to full **preference-based reward learning**, while keeping the current interactive HITL workflow lightweight and reproducible.
 
 ## 📚 Additional Resources
 

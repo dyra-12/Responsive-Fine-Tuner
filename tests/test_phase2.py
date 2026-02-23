@@ -129,8 +129,24 @@ class TestPhase2:
         assert all('text' in doc for doc in documents)
         assert all('source_file' in doc for doc in documents)
         assert all('row_data' in doc for doc in documents)
+        # If a label column exists, it should be preserved in metadata.
+        assert all('label' in doc for doc in documents)
         
         print("✓ CSV file processing test passed")
+
+    def test_csv_labels_opt_in(self):
+        """Test that labels are only populated when use_labels=True"""
+        data_processor = DataProcessor(self.config_manager)
+
+        # Default: treat uploaded data as unlabeled for interactive labeling
+        processed_default = data_processor.process_uploaded_files([self.csv_file_path], use_labels=False)
+        assert processed_default.labels == [0, 0, 0]
+
+        # Opt-in: use labels from CSV label column
+        processed_labeled = data_processor.process_uploaded_files([self.csv_file_path], use_labels=True)
+        assert processed_labeled.labels == [0, 1, 0]
+
+        print("✓ CSV label opt-in test passed")
     
     def test_data_splitting(self):
         """Test train-test split functionality"""

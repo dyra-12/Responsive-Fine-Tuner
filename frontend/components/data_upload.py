@@ -47,12 +47,22 @@ def create_data_upload_interface(app, process_callback: Callable) -> gr.Blocks:
                     show_label=True
                 )
                 
-                dataset_info = gr.Dataframe(
-                    headers=["Metric", "Value"],
-                    label="Dataset Information",
-                    row_count=5,
-                    col_count=2
-                )
+                # Gradio is deprecating `col_count` in favor of `column_count`.
+                # Keep compatibility with both.
+                try:
+                    dataset_info = gr.Dataframe(
+                        headers=["Metric", "Value"],
+                        label="Dataset Information",
+                        row_count=5,
+                        column_count=2,
+                    )
+                except TypeError:
+                    dataset_info = gr.Dataframe(
+                        headers=["Metric", "Value"],
+                        label="Dataset Information",
+                        row_count=5,
+                        col_count=2,
+                    )
         
         # Event handlers
         process_btn.click(

@@ -14,13 +14,22 @@ def create_labeling_interface(app, next_doc_callback: Callable, feedback_callbac
         with gr.Row():
             with gr.Column(scale=2):
                 # Document display
-                document_display = gr.Textbox(
-                    label="Current Document",
-                    lines=8,
-                    max_lines=12,
-                    show_copy_button=True,
-                    container=True
-                )
+                # Some Gradio versions don't support `show_copy_button` on Textbox.
+                try:
+                    document_display = gr.Textbox(
+                        label="Current Document",
+                        lines=8,
+                        max_lines=12,
+                        show_copy_button=True,
+                        container=True,
+                    )
+                except TypeError:
+                    document_display = gr.Textbox(
+                        label="Current Document",
+                        lines=8,
+                        max_lines=12,
+                        container=True,
+                    )
                 
                 # Progress info
                 with gr.Row():
